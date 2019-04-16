@@ -10,7 +10,7 @@ export const ItemView = props => {
       <div className="itemName">{product.name}</div>
       <div className="itemPrice">{product.price}</div>
       <div className="addToCart">
-        <button type="button" onClick={handleClick}>
+        <button type="button" onClick={event => handleClick(product.id)}>
           Add to cart
         </button>
       </div>
