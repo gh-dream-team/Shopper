@@ -19,7 +19,7 @@ export const fetchProducts = () => {
 
 const initialState = []
 
-export default function(state = initialState, action) {
+const productsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GOT_PRODUCTS:
       return action.products
@@ -27,3 +27,5 @@ export default function(state = initialState, action) {
       return state
   }
 }
+
+export default productsReducer
