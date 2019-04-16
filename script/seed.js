@@ -2,6 +2,8 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
+const {Product} = require('../server/db/models/Product')
+const productsData = require('./productsMockData')
 
 async function seed() {
   await db.sync({force: true})
@@ -12,7 +14,14 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
+  const products = await Promise.all(
+    productsData.map(product => {
+      return Product.create(product)
+    })
+  )
+
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
 
