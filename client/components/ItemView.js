@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {addProduct} from '../store/cart.js'
 import {connect} from 'react-redux'
 
-export class ItemView extends Component {
+class ItemView extends Component {
   render() {
     const {product} = this.props
     return (
