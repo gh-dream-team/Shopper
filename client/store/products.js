@@ -12,14 +12,18 @@ const gotProducts = products => ({
 // thunks
 export const fetchProducts = () => {
   return async dispatch => {
-    const {data} = await axios.get('/api/products')
-    dispatch(gotProducts(data))
+    try {
+      const {data} = await axios.get('/api/products')
+      dispatch(gotProducts(data))
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 
 const initialState = []
 
-const productsReducer = (state = initialState, action) => {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GOT_PRODUCTS:
       return action.products
@@ -27,5 +31,3 @@ const productsReducer = (state = initialState, action) => {
       return state
   }
 }
-
-export default productsReducer
