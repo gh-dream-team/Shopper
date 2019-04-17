@@ -3,26 +3,16 @@ import {connect} from 'react-redux'
 import CartItemView from './CartItemView'
 
 class Cart extends Component {
-  constructor() {
-    super()
-    this.state = {
-      total: 0
-    }
-  }
   //need to add a comp-did-mount
   //add a dispatch func to get call from cart
 
   render() {
     const {cart, total} = this.props
-    console.log('CART', cart)
+
     return (
       <div>
         <h1>WELCOME TO CART</h1>
-        {cart.map(item => (
-          <div>
-            <CartItemView key={item.id} product={item} />
-          </div>
-        ))}
+        {cart.map(item => <CartItemView key={item.id} product={item} />)}
         <p>Total: ${total}</p>
       </div>
     )

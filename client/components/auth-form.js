@@ -76,7 +76,7 @@ const mapDispatch = dispatch => {
     handleSubmit(evt) {
       evt.preventDefault()
       const name = evt.target.name
-      console.log('name', name)
+
       const email = evt.target.email.value
       const password = evt.target.password.value
       let username
