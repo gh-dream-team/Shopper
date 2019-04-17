@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {addProduct} from '../store/cart.js'
 import {connect} from 'react-redux'
 
@@ -10,7 +11,9 @@ class ItemView extends Component {
         <div className="itemImage">
           <img src={product.imageUrl} />
         </div>
-        <div className="itemName">{product.name}</div>
+        <Link to={`/products/${product.id}`}>
+          <div className="itemName">{product.name}</div>
+        </Link>
         <div className="itemPrice">{product.price}</div>
         <div className="addToCart">
           <button type="button" onClick={this.props.addProduct(product.id)}>
