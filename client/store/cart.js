@@ -24,7 +24,16 @@ let initialState = []
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADDED_PRODUCT:
-      return [...state, action.product]
+      if (state.length === 0) {
+        return [action.product]
+      }
+      state.map(product => {
+        if (action.product.id === product.id) {
+          return [...state, {...product, quantity: product.quantity++}]
+        } else {
+          return [...state, action.product]
+        }
+      })
     default:
       return state
   }
