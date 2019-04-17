@@ -17,6 +17,11 @@ const AuthForm = props => {
               <small>Name</small>
             </label>
             <input name="username" type="text" required={true} />
+
+            <label htmlFor="address">
+              <small>Address</small>
+            </label>
+            <input name="address" type="text" required={true} />
           </div>
         ) : (
           <p />
@@ -80,7 +85,13 @@ const mapDispatch = dispatch => {
       } else {
         username = null
       }
-      dispatch(auth(email, password, name, username))
+      let address
+      if (evt.target.address) {
+        address = evt.target.address.value
+      } else {
+        address = null
+      }
+      dispatch(auth(email, password, name, username, address))
     }
   }
 }
