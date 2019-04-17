@@ -1,9 +1,17 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {addProduct} from '../store/cart.js'
+import {addProduct, addToCart} from '../store/cart.js'
 import {connect} from 'react-redux'
 
 class ItemView extends Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(id) {
+    this.props.addProduct(id)
+    this.props.addToCart(this.props.cart)
+  }
   render() {
     const {product} = this.props
     return (
@@ -16,10 +24,7 @@ class ItemView extends Component {
         </Link>
         <div className="itemPrice">{product.price}</div>
         <div className="addToCart">
-          <button
-            type="button"
-            onClick={() => this.props.addProduct(product.id)}
-          >
+          <button type="button" onClick={() => this.handleClick(product.id)}>
             Add to cart
           </button>
         </div>
@@ -28,8 +33,12 @@ class ItemView extends Component {
   }
 }
 
+const mapState = state => ({
+  cart: state.cart
+})
 const mapDispatch = dispatch => ({
-  addProduct: id => dispatch(addProduct(id))
+  addProduct: id => dispatch(addProduct(id)),
+  addToCart: cart => dispatch(addToCart(cart))
 })
 
-export default connect(null, mapDispatch)(ItemView)
+export default connect(mapState, mapDispatch)(ItemView)
