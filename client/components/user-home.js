@@ -7,12 +7,15 @@ import {connect} from 'react-redux'
  */
 export const UserHome = props => {
   const {username} = props
-
-  return (
-    <div>
-      <h3>Welcome, {username}</h3>
-    </div>
-  )
+  if (username) {
+    return (
+      <div>
+        <h3>Welcome, {username}</h3>
+      </div>
+    )
+  } else {
+    return <h3>Hello there!</h3>
+  }
 }
 
 /**
@@ -32,5 +35,5 @@ export default connect(mapState)(UserHome)
  */
 UserHome.propTypes = {
   // email: PropTypes.string
-  username : PropTypes.string
+  username: PropTypes.string
 }
