@@ -5,7 +5,8 @@ import {addProduct} from '../store/cart'
 
 class SingleProduct extends Component {
   componentDidMount() {
-    this.props.getProduct()
+    const id = this.props.match.params.productId
+    this.props.getProduct(id)
   }
   render() {
     const {product} = this.props
@@ -18,7 +19,10 @@ class SingleProduct extends Component {
         <div className="productPrice">{product.price}</div>
         <div className="productDescription">{product.description}</div>
         <div className="addToCart">
-          <button type="button" onClick={this.props.addProduct(product.id)}>
+          <button
+            type="button"
+            onClick={() => this.props.addProduct(product.id)}
+          >
             Add to cart
           </button>
         </div>
