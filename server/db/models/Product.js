@@ -15,6 +15,10 @@ const Product = db.define('products', {
     type: Sequelize.DECIMAL
   },
   quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
+  },
+  inventory: {
     type: Sequelize.INTEGER
   }
 })
