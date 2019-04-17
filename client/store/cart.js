@@ -27,13 +27,17 @@ export default function(state = initialState, action) {
       if (state.length === 0) {
         return [action.product]
       }
+      let bool = false
       state.map(product => {
         if (action.product.id === product.id) {
+          bool = true
           return [...state, {...product, quantity: product.quantity++}]
-        } else {
-          return [...state, action.product]
         }
       })
+      if (bool === false) {
+        return [...state, action.product]
+      }
+
     default:
       return state
   }
