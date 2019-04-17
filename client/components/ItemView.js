@@ -16,7 +16,10 @@ class ItemView extends Component {
         </Link>
         <div className="itemPrice">{product.price}</div>
         <div className="addToCart">
-          <button type="button" onClick={this.props.addProduct(product.id)}>
+          <button
+            type="button"
+            onClick={() => this.props.addProduct(product.id)}
+          >
             Add to cart
           </button>
         </div>
