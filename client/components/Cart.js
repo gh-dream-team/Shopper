@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import ItemView from './ItemView'
+import CartItemView from './CartItemView'
 
 class Cart extends Component {
     //need to add a comp-did-mount
@@ -14,7 +14,7 @@ class Cart extends Component {
     <div>
     <h1>WELCOME TO CART</h1>
     {cart.map(item => (
-      <ItemView key={item.id} product={item} />
+      <CartItemView key={item.id} product={item} />
     ))}
     </div>)
   }
