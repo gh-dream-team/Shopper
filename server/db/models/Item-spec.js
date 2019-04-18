@@ -20,6 +20,6 @@ describe('Item model', () => {
       it('should return true for a quantity of 5', () => {
         expect(product.correctQuantity('5')).to.be.equal(true)
       })
-    }) // end describe('correctPassword')
-  }) // end describe('instanceMethods')
-}) // end describe('User model')
+    })
+  })
+})
