@@ -37,7 +37,6 @@ export default function(state = initialState, action) {
       if (bool === false) {
         return [...state, action.product]
       }
-
     default:
       return state
   }

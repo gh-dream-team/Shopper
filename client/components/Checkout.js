@@ -8,7 +8,7 @@ const Checkout = (props) => {
             <h3>Your recent order on the Ninety's Shopper Online Store has been received.</h3>
             <p>Order total: {total}</p>
             <hr/>
-            <p>Shipping to: {address}</p>
+            <p>Shipping to: users address</p>
         </div>
     )
 }
