@@ -12,8 +12,7 @@ const Item = require('./Item')
 
 Cart.hasMany(Item)
 Item.belongsTo(Cart)
-Product.belongsTo(Item)
-Item.hasOne(Product)
+Item.belongsTo(Product)
 Cart.belongsTo(User)
 User.hasMany(Cart)
 
