@@ -1,9 +1,10 @@
 const router = require('express').Router()
-const {Cart, User, Product, Item} = require('../db/models/index.js')
+const {Cart, Item} = require('../db/models/index.js')
 
 router.get('/', async (req, res, next) => {
   try {
     const carts = await Cart.findAll()
+    console.log('Im in cart', carts)
     res.json(carts)
   } catch (error) {
     next(error)
@@ -20,16 +21,38 @@ router.get(':/userId', async (req, res, next) => {
   }
 })
 
-//We want to initialize a new user with a new cart with an item
-router.post('/', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
     const id = req.user.id
-    const cart = await Cart.create(req.body, {userId: id})
-    // const product = await Product.get(req.body.id)
-    // const newItem = await Item.create()
-    // const newCart = await Cart.create(req.body, {where: })
-    res.json(cart)
+    // finding the users cart
+    const cart = await Cart.findOne({where: {userId: id, isPurchased: false}})
+    // find item OR create an Item when a user adds a product to cart
+    const item = await Item.findOne({where: {productId: req.body.id}})
+    if (item) {
+      item.update({quantity: item.quantity + 1})
+    } else {
+      const newItem = await Item.create({productId: req.body.id, quantity: 1})
+      cart.update({itemIds: [...cart.itemIds, newItem]})
+    }
+    // put this item in Cart
+    res.send(cart)
   } catch (error) {
-    next(error)
+    console.error(error)
   }
 })
+
+module.exports = router
+
+//We want to initialize a new user with a new cart with an item
+// router.post('/', async (req, res, next) => {
+//   try {
+//     const id = req.user.id
+//     const cart = await Cart.create(req.body, {userId: id})
+//     // const product = await Product.get(req.body.id)
+//     // const newItem = await Item.create()
+//     // const newCart = await Cart.create(req.body, {where: })
+//     res.json(cart)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
