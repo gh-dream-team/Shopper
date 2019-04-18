@@ -39,24 +39,10 @@ router.put('/:userId', async (req, res, next) => {
       cart.update({itemIds: [...cart.itemIds, newItem.id]})
     }
     // put this item in Cart
-    res.send(cart)
+    res.json(cart)
   } catch (error) {
     console.error(error)
   }
 })
 
 module.exports = router
-
-//We want to initialize a new user with a new cart with an item
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const id = req.user.id
-//     const cart = await Cart.create(req.body, {userId: id})
-//     // const product = await Product.get(req.body.id)
-//     // const newItem = await Item.create()
-//     // const newCart = await Cart.create(req.body, {where: })
-//     res.json(cart)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
