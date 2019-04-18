@@ -26,5 +26,6 @@ User.hasMany(Cart)
 module.exports = {
   User,
   Product,
-  Item
+  Item,
+  Cart
 }
