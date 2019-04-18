@@ -4,16 +4,17 @@ import axios from 'axios'
 const ADDED_PRODUCT = 'ADDED_PRODUCT'
 
 //ACTION CREATORS
-const addedProduct = product => ({
+const addedProduct = cart => ({
   type: ADDED_PRODUCT,
-  product
+  cart
 })
 
 //THUNK
 export const addProduct = id => async dispatch => {
   try {
-    const {data} = await axios.get(`/api/products/${id}`)
-    dispatch(addedProduct(data))
+    const {data} = await axios.put(`/api/products/${id}`)
+    console.log('This should be the guest cart?', data)
+    // dispatch(addedProduct(data))
   } catch (error) {
     console.error(error)
   }
@@ -37,7 +38,7 @@ export default function(state = initialState, action) {
       if (bool === false) {
         return [...state, action.product]
       }
-
+    // return action.cart
     default:
       return state
   }
