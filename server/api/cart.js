@@ -29,14 +29,15 @@ router.put('/:userId', async (req, res, next) => {
     // find item OR create an Item when a user adds a product to cart
     const item = await Item.findOne({where: {productId: req.body.id}})
     if (item) {
-      await item.increment({quantity: 1})
+      const updatedItem = await item.increment('quantity')
+      cart.update({itemIds: [...cart.itemIds, updatedItem.id]})
     } else {
       const newItem = await Item.create({
         productId: req.body.id,
         quantity: 1,
         cartId: cart.id
       })
-      cart.update({itemIds: [...cart.itemIds, newItem]})
+      cart.update({itemIds: [...cart.itemIds, newItem.id]})
     }
     // put this item in Cart
     res.send(cart)
