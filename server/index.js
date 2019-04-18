@@ -63,7 +63,7 @@ const createApp = () => {
   )
 
   app.use((req, res, next) => {
-    console.log('SESSION: ', req.session)
+    console.log('In root index.js, SESSION: ', req.session)
     next()
   })
 

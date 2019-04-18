@@ -13,7 +13,7 @@ const addedProduct = cart => ({
 export const addProduct = id => async dispatch => {
   try {
     const {data} = await axios.put(`/api/products/${id}`)
-    console.log('This should be the guest cart?', data)
+    let guestCart = data
     // dispatch(addedProduct(data))
   } catch (error) {
     console.error(error)
