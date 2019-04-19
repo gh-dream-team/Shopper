@@ -13,7 +13,7 @@ class ItemView extends Component {
     const {product, user} = this.props
     if (user.username) {
       this.props.addToCartDb(product)
-      this.props.addProduct(product)
+      this.props.addProduct(product.id)
     } else {
       this.props.addGuestProduct(product.id)
     }

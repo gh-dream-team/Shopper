@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import CartItemView from './CartItemView'
 import {fetchCart} from '../store/userCart'
 import {getGuestCart, deleteGuestCart} from '../store/cart'
+import UserCartItemView from './UserCartItemView'
 
 class Cart extends Component {
   //need to add a comp-did-mount
@@ -18,7 +19,7 @@ class Cart extends Component {
   }
 
   render() {
-    const {items, total, loading} = this.props
+    const {items, total, loading, userCart, user} = this.props
 
     if (loading) {
       return <p>loading</p>
@@ -26,7 +27,10 @@ class Cart extends Component {
       return (
         <div>
           <h1>WELCOME TO CART</h1>
-          {items.map(product => (
+          { userCart ? userCart.map(product => (
+            <UserCartItemView key={product.id} product={product} />
+          ))
+          : items.map(product => (
             <CartItemView key={product.id} product={product} />
           ))}
 
@@ -47,7 +51,8 @@ const mapState = state => ({
   cart: state.cart,
   user: state.user,
   items: state.cart.items,
-  loading: state.cart.loading
+  loading: state.cart.loading,
+  userCart: state.userCart
 })
 
 const mapDispatch = dispatch => ({
