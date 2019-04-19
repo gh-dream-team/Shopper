@@ -14,7 +14,6 @@ class Cart extends Component {
 
   render() {
     const {items, total, loading} = this.props
-    console.log('items:', items, Array.isArray(items), items[0])
 
     if (loading) {
       return <p>loading</p>
