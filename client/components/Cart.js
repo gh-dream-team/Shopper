@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CartItemView from './CartItemView'
 import {fetchCart} from '../store/userCart'
-import {getGuestCart} from '../store/cart'
+import {getGuestCart, deleteGuestCart} from '../store/cart'
 
 class Cart extends Component {
   //need to add a comp-did-mount
@@ -12,6 +12,7 @@ class Cart extends Component {
     if (!this.props.user.username) {
       this.props.getGuestCart()
     } else {
+      this.props.deleteGuestCart()
       this.props.fetchCart(user.id)
     }
   }
@@ -51,7 +52,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchCart: id => dispatch(fetchCart(id)),
-  getGuestCart: () => dispatch(getGuestCart())
+  getGuestCart: () => dispatch(getGuestCart()),
+  deleteGuestCart: () => dispatch(deleteGuestCart())
 })
 
 export default connect(mapState, mapDispatch)(Cart)
