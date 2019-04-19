@@ -17,7 +17,7 @@ class Cart extends Component {
   }
 
   render() {
-    const {items, total, loading} = this.props
+    const {items, total, loading, user, userCart} = this.props
 
     if (loading) {
       return <p>loading</p>
@@ -25,9 +25,13 @@ class Cart extends Component {
       return (
         <div>
           <h1>WELCOME TO CART</h1>
-          {items.map(product => (
+          {user.username ? userCart.map(product => (
+            <CartItemView key={product.id} product={product} />
+          )) 
+          : items.map(product => (
             <CartItemView key={product.id} product={product} />
           ))}
+
           <p>Total: ${total}</p>
         </div>
       )
@@ -46,6 +50,7 @@ const mapState = state => ({
   user: state.user,
   items: state.cart.items,
   loading: state.cart.loading,
+  userCart: state.userCart
 })
 
 const mapDispatch = dispatch => ({

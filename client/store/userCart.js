@@ -54,6 +54,10 @@ let initialState = []
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case FETCH_CART:
+    console.log("STUFFF INSIDE",action.cart[0].items)
+    const products = action.cart[0].items.map(item => item.product)
+      return [...state, products]
     default:
       return state
   }

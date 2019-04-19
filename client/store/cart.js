@@ -29,16 +29,6 @@ export const addProduct = id => async dispatch => {
   }
 }
 
-export const getGuestCart = () => async dispatch => {
-  dispatch(loading(true))
-  try {
-    let {data} = await axios.get('/api/session')
-    dispatch(getCartItems(data))
-  } catch (err) {
-    console.log('Problem in cart(guest) reducer in store:', err)
-  }
-}
-
 const getCartItems = cart => async dispatch => {
   try {
     let itemIds = Object.keys(cart)
@@ -46,6 +36,15 @@ const getCartItems = cart => async dispatch => {
     dispatch(addedCart(data))
     dispatch(addQuant(cart))
     dispatch(loading(false))
+  } catch (err) {
+    console.log('Problem in cart(guest) reducer in store:', err)
+  }
+}
+export const getGuestCart = () => async dispatch => {
+  dispatch(loading(true))
+  try {
+    let {data} = await axios.get('/api/session')
+    dispatch(getCartItems(data))
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)
   }
