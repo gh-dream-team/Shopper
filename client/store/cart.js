@@ -21,7 +21,7 @@ const addQuant = cart => ({
 })
 
 //THUNK
-export const addProduct = id => async dispatch => {
+export const addGuestProduct = id => async dispatch => {
   try {
     await axios.get(`/api/session/${id}`)
   } catch (error) {

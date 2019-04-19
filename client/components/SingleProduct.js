@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getProduct} from '../store/product'
-import {addProduct} from '../store/cart'
+import {addGuestProduct} from '../store/cart'
+import {addProduct} from '../store/userCart'
 
 class SingleProduct extends Component {
   componentDidMount() {
@@ -37,7 +38,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   getProduct: id => dispatch(getProduct(id)),
-  addProduct: id => dispatch(addProduct(id))
+  addProduct: id => dispatch(addProduct(id)),
+  addGuestProduct: () => dispatch(addGuestProduct())
 })
 
 export default connect(mapState, mapDispatch)(SingleProduct)
