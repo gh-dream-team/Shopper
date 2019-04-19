@@ -1,29 +1,51 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CartItemView from './CartItemView'
+import {getGuestCart} from '../store/cart'
 
 class Cart extends Component {
   //need to add a comp-did-mount
   //add a dispatch func to get call from cart
+  componentDidMount() {
+    if (!this.props.user.username) {
+      this.props.getGuestCart()
+    }
+  }
 
   render() {
-    const {cart, total} = this.props
+    const {items, total, loading} = this.props
 
-    return (
-      <div>
-        <h1>WELCOME TO CART</h1>
-        {cart.map(item => <CartItemView key={item.id} product={item} />)}
-        <p>Total: ${total}</p>
-      </div>
-    )
+    if (loading) {
+      return <p>loading</p>
+    } else {
+      return (
+        <div>
+          <h1>WELCOME TO CART</h1>
+          {items.map(product => (
+            <CartItemView key={product.id} product={product} />
+          ))}
+
+          <p>Total: ${total}</p>
+        </div>
+      )
+    }
   }
 }
 
 const mapState = state => ({
-  total: state.cart[0]
-    ? state.cart.reduce((total, item) => total + item.price * item.quantity, 0)
+  total: state.cart.items[0]
+    ? state.cart.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      )
     : 0,
-  cart: state.cart
+  items: state.cart.items,
+  user: state.user,
+  loading: state.cart.loading
 })
 
-export default connect(mapState)(Cart)
+const mapDispatch = {
+  getGuestCart
+}
+
+export default connect(mapState, mapDispatch)(Cart)
