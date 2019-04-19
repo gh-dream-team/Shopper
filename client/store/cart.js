@@ -2,11 +2,16 @@ import axios from 'axios'
 
 //ACTION TYPES
 const ADDED_CART = 'ADDED_CART'
+const LOADING = 'LOADING'
 
 //ACTION CREATORS
 const addedCart = cart => ({
   type: ADDED_CART,
   cart
+})
+const loading = bool => ({
+  type: LOADING,
+  loading: bool
 })
 
 //THUNK
@@ -19,6 +24,7 @@ export const addProduct = id => async dispatch => {
 }
 
 export const getGuestCart = () => async dispatch => {
+  dispatch(loading(true))
   try {
     let {data} = await axios.get('/api/session')
 
@@ -40,6 +46,7 @@ const getCartItems = cart => dispatch => {
       Oitem.then(item => guestCartArray.push(item))
     )
     dispatch(addedCart(guestCartArray))
+    dispatch(loading(false))
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)
   }
@@ -49,12 +56,17 @@ const getCartItems = cart => dispatch => {
 // see console.log here or in cart component of the object that gets added to guestcartaray - how do we dig out the relevant object?
 // could also try let ids = Object.keys(cart1) and then findAll with a {where: [Op.in]: ids} - but then how add the quantity??
 
-let initialState = []
+let initialState = {
+  items: [],
+  loading: false
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case ADDED_CART:
-      return action.cart
+      return {...state, items: action.cart}
+    case LOADING:
+      return {...state, loading: action.loading}
     default:
       return state
   }

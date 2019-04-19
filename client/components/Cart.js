@@ -15,31 +15,27 @@ class Cart extends Component {
   render() {
     const {cart, total} = this.props
     console.log('cart!!', cart)
-    // if (!newArr[0]) {
-    //   return (
-    //     <div>
-    //       <h1>WELCOME TO CART</h1>
-    //       <p>Cart is Empty!</p>
-    //     </div>
-    //   )
-    // } else {
-    return (
-      <div>
-        <h1>WELCOME TO CART</h1>
-        {cart.map(item => <CartItemView key={item.id} product={item} />)}
-        <p>Total: ${total}</p>
-      </div>
-    )
+    if (loading) {
+      return <p>loading</p>
+    } else {
+      return (
+        <div>
+          <h1>WELCOME TO CART</h1>
+          {cart.map(item => <CartItemView key={item.id} product={item} />)}
+          <p>Total: ${total}</p>
+        </div>
+      )
+    }
   }
 }
-// }
 
 const mapState = state => ({
   total: state.cart[0]
     ? state.cart.reduce((total, item) => total + item.price * item.quantity, 0)
     : 0,
-  cart: state.cart,
-  user: state.user
+  cart: state.cart.items,
+  user: state.user,
+  loading: state.cart.loading
 })
 
 const mapDispatch = {
