@@ -30,6 +30,27 @@ describe('Product routes', () => {
     })
   })
 
+  describe('/api/products/:id', () => {
+    beforeEach(() => {
+      return Product.create({
+        name: '90s Hits',
+        description: 'Album of 90s Songs',
+        imageURL:
+          'https://i.scdn.co/image/f3a712900e850ccf1775a6b0ba15495d796ac95f',
+        price: '10'
+      })
+    })
+
+    it('GET /api/products/:id', async () => {
+      const res = await request(app)
+        .get('/api/products/1')
+        .expect(200)
+      expect(res.body).to.be.an('object')
+
+      expect(res.body.name).to.be.equal('90s Hits')
+    })
+  })
+
   //   For put request when we want to update quantities
   //   describe('no inventory', () => {
   //     beforeEach(() => {
