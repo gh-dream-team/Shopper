@@ -51,7 +51,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchCart: id => dispatch(fetchCart(id)),
-  getGuestCart
+  getGuestCart: () => dispatch(getGuestCart())
 })
 
 export default connect(mapState, mapDispatch)(Cart)

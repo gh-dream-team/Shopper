@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {addProduct} from '../store/cart.js'
-import {addToCartDb} from '../store/userCart'
+import {addGuestProduct} from '../store/cart.js'
+import {addToCartDb, addProduct} from '../store/userCart'
 import {connect} from 'react-redux'
 
 class ItemView extends Component {
@@ -10,9 +10,13 @@ class ItemView extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   handleClick() {
-    const {product} = this.props
-    this.props.addToCartDb(product)
-    this.props.addProduct(product.id)
+    const {product, user} = this.props
+    if (user.username) {
+      this.props.addToCartDb(product)
+      this.props.addProduct(product)
+    } else {
+      this.props.addGuestProduct(product.id)
+    }
   }
   render() {
     const {product} = this.props
@@ -40,6 +44,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
+  addGuestProduct: id => dispatch(addGuestProduct(id)),
   addProduct: id => dispatch(addProduct(id)),
   addToCartDb: product => dispatch(addToCartDb(product))
 })
