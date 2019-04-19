@@ -34,9 +34,9 @@ export const getGuestCart = () => async dispatch => {
   }
 }
 
-const getCartItems = cart => dispatch => {
+const getCartItems = cart => async dispatch => {
   try {
-    let guestCartPromises = Object.keys(cart).map(async key => {
+    let guestCartPromises = await Object.keys(cart).map(async key => {
       let {data} = await axios.get(`/api/products/${key}`)
       data.quantity = cart[key]
       return data
@@ -45,7 +45,7 @@ const getCartItems = cart => dispatch => {
     guestCartPromises.forEach(Oitem =>
       Oitem.then(item => guestCartArray.push(item))
     )
-    dispatch(addedCart(guestCartArray))
+    dispatch(addedCart(guestCartPromises))
     dispatch(loading(false))
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)

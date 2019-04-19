@@ -13,15 +13,19 @@ class Cart extends Component {
   }
 
   render() {
-    const {cart, total} = this.props
-    console.log('cart!!', cart)
+    const {items, total, loading} = this.props
+    console.log('items:', items, Array.isArray(items), items[0])
+    items.forEach(item => console.log('item', item, item.name))
     if (loading) {
       return <p>loading</p>
     } else {
       return (
         <div>
           <h1>WELCOME TO CART</h1>
-          {cart.map(item => <CartItemView key={item.id} product={item} />)}
+          {items.map(product => (
+            <CartItemView key={product.id} product={product} />
+          ))}
+
           <p>Total: ${total}</p>
         </div>
       )
@@ -33,7 +37,7 @@ const mapState = state => ({
   total: state.cart[0]
     ? state.cart.reduce((total, item) => total + item.price * item.quantity, 0)
     : 0,
-  cart: state.cart.items,
+  items: state.cart.items,
   user: state.user,
   loading: state.cart.loading
 })

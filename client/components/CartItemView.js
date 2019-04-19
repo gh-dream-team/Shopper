@@ -6,6 +6,7 @@ import {connect} from 'react-redux'
 class CartItemView extends Component {
   render() {
     const {product} = this.props
+    console.log(product, 'in cart item view')
     return (
       <div className="itemViewContainer">
         <div className="itemImage">
