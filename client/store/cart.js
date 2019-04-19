@@ -4,6 +4,7 @@ import axios from 'axios'
 const ADDED_CART = 'ADDED_CART'
 const LOADING = 'LOADING'
 const ADD_QUANT = 'ADD_QUANT'
+const EMPTY_CART = 'EMPTY_CART'
 
 //ACTION CREATORS
 const addedCart = cart => ({
@@ -18,6 +19,10 @@ const loading = bool => ({
 const addQuant = cart => ({
   type: ADD_QUANT,
   cart
+})
+
+export const deleteGuestCart = () => ({
+  type: EMPTY_CART
 })
 
 //THUNK
@@ -74,6 +79,8 @@ export default function(state = initialState, action) {
           return item
         })
       }
+    case EMPTY_CART:
+      return {...state, items: []}
     default:
       return state
   }
