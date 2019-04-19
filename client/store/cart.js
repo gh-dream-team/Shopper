@@ -36,16 +36,19 @@ export const getGuestCart = () => async dispatch => {
 
 const getCartItems = cart => async dispatch => {
   try {
-    let guestCartPromises = await Object.keys(cart).map(async key => {
-      let {data} = await axios.get(`/api/products/${key}`)
-      data.quantity = cart[key]
-      return data
-    })
-    let guestCartArray = []
-    guestCartPromises.forEach(Oitem =>
-      Oitem.then(item => guestCartArray.push(item))
-    )
-    dispatch(addedCart(guestCartPromises))
+    let itemIds = Object.keys(cart)
+    console.log(itemIds[0])
+    let items = await axios.get('api/products/many', itemIds)
+    // let guestCartPromises = await Object.keys(cart).map(async key => {
+    //   let {data} = await axios.get(`/api/products/${key}`)
+    //   data.quantity = cart[key]
+    //   return data
+    // })
+    // let guestCartArray = []
+    // guestCartPromises.forEach(Oitem =>
+    //   Oitem.then(item => guestCartArray.push(item))
+    // )
+    dispatch(addedCart(items))
     dispatch(loading(false))
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)
