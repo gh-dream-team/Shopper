@@ -15,7 +15,7 @@ class Cart extends Component {
   render() {
     const {items, total, loading} = this.props
     console.log('items:', items, Array.isArray(items), items[0])
-    items.forEach(item => console.log('item', item, item.name))
+
     if (loading) {
       return <p>loading</p>
     } else {
@@ -34,8 +34,11 @@ class Cart extends Component {
 }
 
 const mapState = state => ({
-  total: state.cart[0]
-    ? state.cart.reduce((total, item) => total + item.price * item.quantity, 0)
+  total: state.cart.items[0]
+    ? state.cart.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      )
     : 0,
   items: state.cart.items,
   user: state.user,

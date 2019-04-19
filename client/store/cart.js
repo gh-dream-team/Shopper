@@ -3,6 +3,7 @@ import axios from 'axios'
 //ACTION TYPES
 const ADDED_CART = 'ADDED_CART'
 const LOADING = 'LOADING'
+const ADD_QUANT = 'ADD_QUANT'
 
 //ACTION CREATORS
 const addedCart = cart => ({
@@ -14,10 +15,15 @@ const loading = bool => ({
   loading: bool
 })
 
+const addQuant = cart => ({
+  type: ADD_QUANT,
+  cart
+})
+
 //THUNK
 export const addProduct = id => async dispatch => {
   try {
-    await axios.put(`/api/session/${id}`)
+    await axios.get(`/api/session/${id}`)
   } catch (error) {
     console.error(error)
   }
@@ -27,7 +33,6 @@ export const getGuestCart = () => async dispatch => {
   dispatch(loading(true))
   try {
     let {data} = await axios.get('/api/session')
-
     dispatch(getCartItems(data))
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)
@@ -37,18 +42,9 @@ export const getGuestCart = () => async dispatch => {
 const getCartItems = cart => async dispatch => {
   try {
     let itemIds = Object.keys(cart)
-    console.log(itemIds[0])
-    let items = await axios.get('api/products/many', itemIds)
-    // let guestCartPromises = await Object.keys(cart).map(async key => {
-    //   let {data} = await axios.get(`/api/products/${key}`)
-    //   data.quantity = cart[key]
-    //   return data
-    // })
-    // let guestCartArray = []
-    // guestCartPromises.forEach(Oitem =>
-    //   Oitem.then(item => guestCartArray.push(item))
-    // )
-    dispatch(addedCart(items))
+    let {data} = await axios.put('api/session/many', itemIds)
+    dispatch(addedCart(data))
+    dispatch(addQuant(cart))
     dispatch(loading(false))
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)
@@ -70,6 +66,14 @@ export default function(state = initialState, action) {
       return {...state, items: action.cart}
     case LOADING:
       return {...state, loading: action.loading}
+    case ADD_QUANT:
+      return {
+        ...state,
+        items: state.items.map(item => {
+          item.quantity = action.cart[item.id]
+          return item
+        })
+      }
     default:
       return state
   }
