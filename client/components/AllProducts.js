@@ -10,6 +10,7 @@ class AllProducts extends Component {
 
   render() {
     const {products} = this.props
+
     return products.map(product => (
       <ItemView key={product.id} product={product} />
     ))
