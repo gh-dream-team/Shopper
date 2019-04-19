@@ -25,10 +25,10 @@ export const addProduct = id => async dispatch => {
   }
 }
 
-export const addToCartDb = (userId, product) => async dispatch => {
+export const addToCartDb = product => async dispatch => {
   try {
     // update the db
-    const {data} = await axios.put(`/api/carts/${userId}`, product)
+    const {data} = await axios.put(`/api/carts`, product)
     dispatch(addedToCartDb(data))
   } catch (error) {
     console.error(error)

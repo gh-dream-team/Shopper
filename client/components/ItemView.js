@@ -5,6 +5,15 @@ import {addToCartDb} from '../store/userCart'
 import {connect} from 'react-redux'
 
 class ItemView extends Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick() {
+    const {product} = this.props
+    this.props.addToCartDb(product)
+    this.props.addProduct(product.id)
+  }
   render() {
     const {product} = this.props
     return (
@@ -17,10 +26,7 @@ class ItemView extends Component {
         </Link>
         <div className="itemPrice">{product.price}</div>
         <div className="addToCart">
-          <button
-            type="button"
-            onClick={() => this.props.addToCartDb(this.props.user.id, product)}
-          >
+          <button type="button" onClick={this.handleClick}>
             Add to cart
           </button>
         </div>
@@ -35,7 +41,7 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   addProduct: id => dispatch(addProduct(id)),
-  addToCartDb: (userId, product) => dispatch(addToCartDb(userId, product))
+  addToCartDb: product => dispatch(addToCartDb(product))
 })
 
 export default connect(mapState, mapDispatch)(ItemView)

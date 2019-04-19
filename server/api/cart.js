@@ -20,16 +20,20 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-router.put('/:userId', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
   try {
-    const id = req.params.userId
+    const id = req.user.id
     // finding the users cart
     const cart = await Cart.findOne({where: {userId: id, isPurchased: false}})
     // find item OR create an Item when a user adds a product to cart
-    const item = await Item.findOne({where: {productId: req.body.id}})
+    const item = await Item.findOne({
+      where: {
+        productId: req.body.id,
+        cartId: cart.id
+      }
+    })
     if (item) {
-      const updatedItem = await item.increment('quantity')
-      cart.update({itemIds: [...cart.itemIds, updatedItem.id]})
+      await item.increment('quantity')
     } else {
       const newItem = await Item.create({
         productId: req.body.id,
