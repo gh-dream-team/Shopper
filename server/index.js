@@ -62,11 +62,6 @@ const createApp = () => {
     })
   )
 
-  app.use((req, res, next) => {
-    console.log('In root index.js, SESSION: ', req.session)
-    next()
-  })
-
   app.use(passport.initialize())
   app.use(passport.session())
 
