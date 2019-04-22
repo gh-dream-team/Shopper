@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-// import {addProduct} from '../store/cart.js'
 import {connect} from 'react-redux'
 
 class CartItemView extends Component {
@@ -21,9 +20,5 @@ class CartItemView extends Component {
     )
   }
 }
-
-// const mapDispatch = dispatch => ({
-//   addProduct: id => dispatch(addProduct(id))
-// })
 
 export default connect(null)(CartItemView)
