@@ -32,13 +32,10 @@ class SingleProduct extends Component {
         </div>
         <div className="productInfo">
           <div className="productName">{product.name}</div>
-          <div className="productPrice">Price: ${product.price}</div>
+          <div className="productPrice">Price: ${product.price / 100}</div>
           <div className="productDescription">{product.description}</div>
           <div className="addToCart">
-            <button
-              type="button"
-              onClick={this.handleClick}
-            >
+            <button type="button" onClick={this.handleClick}>
               Add to cart
             </button>
           </div>
