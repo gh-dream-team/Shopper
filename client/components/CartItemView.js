@@ -15,7 +15,7 @@ class CartItemView extends Component {
         <Link to={`/products/${product.id}`}>
           <div className="itemName">{product.name}</div>
         </Link>
-        <div className="itemPrice">Price: ${product.price}</div>
+        <div className="itemPrice">Price: ${product.price / 100}</div>
         <div className="itemQuantity">Quantity:{product.quantity}</div>
       </div>
     )
