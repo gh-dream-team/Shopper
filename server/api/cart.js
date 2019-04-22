@@ -38,12 +38,11 @@ router.put('/', async (req, res, next) => {
     if (item) {
       await item.increment('quantity')
     } else {
-      const newItem = await Item.create({
+      await Item.create({
         productId: req.body.id,
         quantity: 1,
         cartId: cart.id
       })
-      cart.update({itemIds: [...cart.itemIds, newItem.id]})
     }
     // put this item in Cart
     res.json(cart)
