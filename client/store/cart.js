@@ -5,6 +5,7 @@ const ADDED_CART = 'ADDED_CART'
 const LOADING = 'LOADING'
 const ADD_QUANT = 'ADD_QUANT'
 const EMPTY_CART = 'EMPTY_CART'
+const ADD_INFO = 'ADD_INFO'
 
 //ACTION CREATORS
 const addedCart = cart => ({
@@ -23,6 +24,11 @@ const addQuant = cart => ({
 
 export const emptyCart = () => ({
   type: EMPTY_CART
+})
+
+const addInfo = info => ({
+  type: ADD_INFO,
+  info
 })
 
 //THUNK
@@ -63,6 +69,21 @@ export const getGuestCart = () => async dispatch => {
     console.log('Problem in cart(guest) reducer in store:', err)
   }
 }
+export const addGuestInfo = (
+  guestName,
+  email,
+  address,
+  cart,
+  total
+) => async dispatch => {
+  try {
+    const guestInfo = {guestName, email, address, cart, total}
+    const {data} = await axios.post('/api/guestpurchases', guestInfo)
+    dispatch(addInfo(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 export const increaseQuantity = id => async dispatch => {
   try {
@@ -88,7 +109,8 @@ export const decreaseQuantity = id => async dispatch => {
 
 let initialState = {
   items: [],
-  loading: false
+  loading: false,
+  order: ''
 }
 
 export default function(state = initialState, action) {
@@ -108,6 +130,8 @@ export default function(state = initialState, action) {
       }
     case EMPTY_CART:
       return {...state, items: []}
+    case ADD_INFO:
+      return {...state, order: action.info}
     default:
       return state
   }

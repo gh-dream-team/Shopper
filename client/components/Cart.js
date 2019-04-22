@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CartItemView from './CartItemView'
 import {getGuestCart, deleteGuestCart} from '../store/cart'
+import {Link} from 'react-router-dom'
 
 class Cart extends Component {
   componentDidMount() {
@@ -21,7 +22,13 @@ class Cart extends Component {
             <CartItemView key={product.id} product={product} />
           ))}
           <p>Total: ${total / 100}</p>
+
+          <button type="button">
+            <Link to="/guest-checkout">Checkout Form</Link>{' '}
+          </button>
+
           <button onClick={() => deleteGuestCart()}>Clear Cart</button>
+
         </div>
       )
     }
