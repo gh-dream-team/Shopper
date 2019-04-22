@@ -8,22 +8,18 @@ class UserCartItemView extends Component {
     const {products} = this.props
 
     return products.map(product => (
-      <div className="itemViewContainer" key={product.id}>
+      <div className="itemViewContainer" key={product.product.id}>
         <div className="itemImage">
-          <img src={product.imageUrl} />
+          <img src={product.product.imageUrl} />
         </div>
-        <Link to={`/products/${product.id}`}>
-          <div className="itemName">{product.name}</div>
+        <Link to={`/products/${product.product.id}`}>
+          <div className="itemName">{product.product.name}</div>
         </Link>
-        <div className="itemPrice">Price: ${product.price}</div>
+        <div className="itemPrice">Price: ${product.product.price / 100}</div>
         <div className="itemQuantity">Quantity:{product.quantity}</div>
       </div>
     ))
   }
 }
-
-// const mapDispatch = dispatch => ({
-//   addProduct: id => dispatch(addProduct(id))
-// })
 
 export default connect(null)(UserCartItemView)

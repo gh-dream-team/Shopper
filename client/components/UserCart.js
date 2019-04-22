@@ -11,7 +11,6 @@ class UserCart extends Component {
 
   render() {
     const {total, userCart} = this.props
-    console.log(userCart[0])
     return (
       <div>
         <h1>WELCOME TO CART</h1>
@@ -19,7 +18,7 @@ class UserCart extends Component {
           <UserCartItemView key={products.id} products={products} />
         ))}
 
-        <p>Total: ${total}</p>
+        <p>Total: ${total / 100}</p>
       </div>
     )
   }
@@ -27,7 +26,10 @@ class UserCart extends Component {
 
 const mapState = state => ({
   total: state.userCart[0]
-    ? state.userCart[0].reduce((total, item) => total + item.price, 0)
+    ? state.userCart[0].reduce(
+        (total, item) => total + item.product.price * item.quantity,
+        0
+      )
     : 0,
   user: state.user,
   userCart: state.userCart
