@@ -27,6 +27,31 @@ router.get('/:productId', (req, res, next) => {
   res.send(req.session.cart)
 })
 
+router.put('/up', (req, res, next) => {
+  let id = req.body.id
+
+  req.session.cart[id]++
+
+  res.send(req.session.cart)
+})
+
+router.put('/down', (req, res, next) => {
+  let id = req.body.id
+  console.log(req.session.cart, 'req.session.cart in session api')
+  if (req.session.cart[id] > 0) {
+    req.session.cart[id]--
+  } else {
+    delete req.session.cart[id]
+  }
+
+  res.send(req.session.cart)
+})
+
+router.delete('/clear', (req, res, next) => {
+  req.session.cart = {}
+  res.send(req.session.cart)
+})
+
 router.put('/many', async (req, res, next) => {
   try {
     const products = await Product.findAll({

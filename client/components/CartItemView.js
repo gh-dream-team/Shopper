@@ -1,29 +1,41 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-// import {addProduct} from '../store/cart.js'
+import {increaseQuantity, decreaseQuantity} from '../store/cart.js'
 import {connect} from 'react-redux'
 
 class CartItemView extends Component {
   render() {
-    const {product} = this.props
-
-    return (
-      <div className="itemViewContainer">
-        <div className="itemImage">
-          <img src={product.imageUrl} />
+    const {cartProducts, product} = this.props
+    const cartProduct = cartProducts[0]
+    if (cartProduct.quantity > 0) {
+      return (
+        <div className="itemViewContainer">
+          <div className="itemImage">
+            <img src={cartProduct.imageUrl} />
+          </div>
+          <Link to={`/products/${cartProduct.id}`}>
+            <div className="itemName">{cartProduct.name}</div>
+          </Link>
+          <div className="itemPrice">Price: ${cartProduct.price / 100}</div>
+          <div className="itemQuantity">Quantity:{cartProduct.quantity}</div>
+          <button onClick={() => this.props.increaseQuantity(product.id)}>
+            +1
+          </button>
+          <button onClick={() => this.props.decreaseQuantity(product.id)}>
+            -1
+          </button>
         </div>
-        <Link to={`/products/${product.id}`}>
-          <div className="itemName">{product.name}</div>
-        </Link>
-        <div className="itemPrice">Price: ${product.price / 100}</div>
-        <div className="itemQuantity">Quantity:{product.quantity}</div>
-      </div>
-    )
+      )
+    } else {
+      return <p />
+    }
   }
 }
 
-// const mapDispatch = dispatch => ({
-//   addProduct: id => dispatch(addProduct(id))
-// })
+const mapDispatch = {increaseQuantity, decreaseQuantity}
 
-export default connect(null)(CartItemView)
+const mapState = (state, ownProps) => ({
+  cartProducts: state.cart.items.filter(item => item.id === ownProps.product.id)
+})
+
+export default connect(mapState, mapDispatch)(CartItemView)
