@@ -6,11 +6,9 @@ import {connect} from 'react-redux'
 class UserCartItemView extends Component {
   render() {
     const {products} = this.props
-    console.log("PRODUCTS", products)
 
-    return (
-        products.map(product => 
-        <div className="itemViewContainer" key={product.id}>
+    return products.map(product => (
+      <div className="itemViewContainer" key={product.id}>
         <div className="itemImage">
           <img src={product.imageUrl} />
         </div>
@@ -20,8 +18,7 @@ class UserCartItemView extends Component {
         <div className="itemPrice">Price: ${product.price}</div>
         <div className="itemQuantity">Quantity:{product.quantity}</div>
       </div>
-      )
-    )
+    ))
   }
 }
 
