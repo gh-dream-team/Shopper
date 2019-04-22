@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import './user-home.css'
 
 /**
  * COMPONENT
@@ -14,7 +15,7 @@ export const UserHome = props => {
       </div>
     )
   } else {
-    return <h3>Hello there!</h3>
+    return <div className="hello">Hello there!</div>
   }
 }
 

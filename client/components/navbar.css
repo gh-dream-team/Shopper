@@ -1,0 +1,23 @@
+h1 {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+}
+
+nav {
+  text-align: center;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  color: black;
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
