@@ -1,18 +1,32 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
-const Checkout = (props) => {
-    const {total, address} = props
-    return(
+class Checkout extends React.Component {
+  render() {
+    const {order} = this.props
+    if (order.id) {
+      return (
         <div>
-            <h1>Thank you for your order!</h1>
-            <h3>Your recent order on the Ninety's Shopper Online Store has been received.</h3>
-            <p>Order total: {total}</p>
-            <hr/>
-            <p>Shipping to: {address}</p>
+          <h1>Thank you for your order!</h1>
+          <h3>
+            Your recent order on the Ninety's Shopper Online Store has been
+            received.
+          </h3>
+          <p>Order total: ${order.total / 100}</p>
+          <hr />
+          <p>Your order number is {order.id}</p>
+          <hr />
+          <p>Your address is {order.address}</p>
         </div>
-    )
+      )
+    } else {
+      return <div />
+    }
+  }
 }
 
-export default Checkout
+const mapState = state => ({
+  order: state.cart.order
+})
 
-//need to be able to pass in props of total and address from cart view.  This page should only appear after a user has clicked the submit button
+export default connect(mapState)(Checkout)
