@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/products'
 import ItemView from './ItemView'
+import './AllProducts.css'
 
 class AllProducts extends Component {
   componentDidMount() {
@@ -11,9 +12,13 @@ class AllProducts extends Component {
   render() {
     const {products} = this.props
 
-    return products.map(product => (
-      <ItemView key={product.id} product={product} />
-    ))
+    return (
+      <div className="allProductsContainer">
+        {products.map(product => (
+          <ItemView key={product.id} product={product} />
+        ))}
+      </div>
+    )
   }
 }
 

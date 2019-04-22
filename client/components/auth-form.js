@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import './auth-form.css'
 
 /**
  * COMPONENT
@@ -9,7 +10,7 @@ import {auth} from '../store'
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
   return (
-    <div>
+    <div className="signUpContainer">
       <form onSubmit={handleSubmit} name={name}>
         {name === 'signup' ? (
           <div>

@@ -1,0 +1,4 @@
+.signUpContainer {
+  display: flex;
+  flex-direction: column;
+}
