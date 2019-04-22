@@ -9,7 +9,7 @@ class Cart extends Component {
   }
 
   render() {
-    const {items, total, loading} = this.props
+    const {items, total, loading, deleteGuestCart} = this.props
 
     if (loading) {
       return <p>loading</p>
@@ -21,6 +21,7 @@ class Cart extends Component {
             <CartItemView key={product.id} product={product} />
           ))}
           <p>Total: ${total / 100}</p>
+          <button onClick={() => deleteGuestCart()}>Clear Cart</button>
         </div>
       )
     }
