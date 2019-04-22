@@ -52,4 +52,63 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+router.put('/increment', async (req, res, next) => {
+  try {
+    const id = req.user.id
+    // finding the users cart
+    const cart = await Cart.findOne({where: {userId: id, isPurchased: false}})
+    // find item OR create an Item when a user adds a product to cart
+    const item = await Item.findOne({
+      where: {
+        productId: req.body.id,
+        cartId: cart.id
+      }
+    })
+    await item.increment('quantity')
+    // put this item in Cart
+    res.json(item)
+  } catch (error) {
+    console.error(error)
+  }
+})
+
+router.put('/decrement', async (req, res, next) => {
+  try {
+    const id = req.user.id
+    // finding the users cart
+    const cart = await Cart.findOne({where: {userId: id, isPurchased: false}})
+    // find item OR create an Item when a user adds a product to cart
+    const item = await Item.findOne({
+      where: {
+        productId: req.body.id,
+        cartId: cart.id
+      }
+    })
+    await item.decrement('quantity')
+
+    // put this item in Cart
+    res.json(item)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    const id = req.user.id
+    // finding the users cart
+    const cart = await Cart.findOne({where: {userId: id, isPurchased: false}})
+    // find item OR create an Item when a user adds a product to cart
+    await Item.destroy({
+      where: {
+        productId: req.params.productId,
+        cartId: cart.id
+      }
+    })
+    res.json(req.params.productId)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
