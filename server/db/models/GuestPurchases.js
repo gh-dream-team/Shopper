@@ -23,6 +23,9 @@ const GuestPurchases = db.define('guestpurchases', {
   },
   cart: {
     type: Sequelize.JSONB
+  },
+  total: {
+    type: Sequelize.INTEGER
   }
 })
 
