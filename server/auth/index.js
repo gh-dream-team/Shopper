@@ -22,7 +22,11 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
+    const user = await User.create({
+      username: req.body.username,
+      email: req.body.email,
+      address: req.body.address
+    }) //do we also want to add password, salt, googleId??
     await Cart.create({userId: user.id})
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {

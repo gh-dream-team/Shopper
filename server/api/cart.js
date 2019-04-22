@@ -12,12 +12,18 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const id = req.user.id
-    const cart = await Cart.findAll({
+    // console.log("USERID", req.params.us)
+    if(req.user.id === req.params.userId){
+      const id = req.user.id
+      const cart = await Cart.findAll({
       where: {userId: id, isPurchased: false},
       include: [{model: Item, include: {model: Product}}]
     })
     res.json(cart)
+    }
+    else{
+      res.json('Must be logged in')
+    }
   } catch (error) {
     next(error)
   }
