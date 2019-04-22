@@ -20,7 +20,7 @@ class Cart extends Component {
           {items.map(product => (
             <CartItemView key={product.id} product={product} />
           ))}
-          <p>Total: ${total}</p>
+          <p>Total: ${total / 100}</p>
         </div>
       )
     }
