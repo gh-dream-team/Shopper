@@ -99,7 +99,7 @@ router.delete('/:productId', async (req, res, next) => {
     // finding the users cart
     const cart = await Cart.findOne({where: {userId: id, isPurchased: false}})
     // find item OR create an Item when a user adds a product to cart
-    const item = await Item.destroy({
+    await Item.destroy({
       where: {
         productId: req.params.productId,
         cartId: cart.id

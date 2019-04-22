@@ -10,37 +10,45 @@ import {
 class UserCartItemView extends Component {
   render() {
     const {products} = this.props
-
-    return products.map(product => (
-      <div className="itemViewContainer" key={product.product.id}>
-        <div className="itemImage">
-          <img src={product.product.imageUrl} />
-        </div>
-        <Link to={`/products/${product.product.id}`}>
-          <div className="itemName">{product.product.name}</div>
-        </Link>
-        <div className="itemPrice">Price: ${product.product.price / 100}</div>
-        <div className="itemQuantity">Quantity:{product.quantity}</div>
-        <button
-          type="button"
-          onClick={() => this.props.deleteFromQuantity(product.product)}
-        >
-          {' '}
-          -{' '}
-        </button>
-        <button
-          type="button"
-          onClick={() => this.props.addToQuantity(product.product)}
-        />{' '}
-        +
-        <button
-          type="button"
-          onClick={() => this.props.deleteProduct(product.product.id)}
-        >
-          Delete
-        </button>
-      </div>
-    ))
+    return products.map(
+      product =>
+        product.quantity > 0 ? (
+          <div className="itemViewContainer" key={product.product.id}>
+            <div className="itemImage">
+              <img src={product.product.imageUrl} />
+            </div>
+            <Link to={`/products/${product.product.id}`}>
+              <div className="itemName">{product.product.name}</div>
+            </Link>
+            <div className="itemPrice">
+              Price: ${product.product.price / 100}
+            </div>
+            <div className="itemQuantity">Quantity:{product.quantity}</div>
+            <button
+              type="button"
+              onClick={() => this.props.deleteFromQuantity(product.product)}
+            >
+              {' '}
+              -{' '}
+            </button>
+            <button
+              type="button"
+              onClick={() => this.props.addToQuantity(product.product)}
+            >
+              {' '}
+              +{' '}
+            </button>
+            <button
+              type="button"
+              onClick={() => this.props.deleteProduct(product.product.id)}
+            >
+              Delete
+            </button>
+          </div>
+        ) : (
+          <p />
+        )
+    )
   }
 }
 
