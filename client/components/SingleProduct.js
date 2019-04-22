@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getProduct} from '../store/product'
 import {addGuestProduct} from '../store/cart'
 import {addProduct, addToCartDb} from '../store/userCart'
+import './SingleProduct.css'
 
 class SingleProduct extends Component {
   constructor() {
@@ -29,13 +30,18 @@ class SingleProduct extends Component {
         <div className="productImage">
           <img src={product.imageUrl} />
         </div>
-        <div className="productName">{product.name}</div>
-        <div className="productPrice">{product.price}</div>
-        <div className="productDescription">{product.description}</div>
-        <div className="addToCart">
-          <button type="button" onClick={this.handleClick}>
-            Add to cart
-          </button>
+        <div className="productInfo">
+          <div className="productName">{product.name}</div>
+          <div className="productPrice">Price: ${product.price}</div>
+          <div className="productDescription">{product.description}</div>
+          <div className="addToCart">
+            <button
+              type="button"
+              onClick={this.handleClick}
+            >
+              Add to cart
+            </button>
+          </div>
         </div>
       </div>
     )
