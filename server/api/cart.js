@@ -105,4 +105,23 @@ router.delete('/:productId', async (req, res, next) => {
   }
 })
 
+router.put('/checkout/:id', async (req, res, next) => {
+  try {
+    const [numberOfAffectedRows, affectedCart] = await Cart.update(
+      {
+        isPurchased: true
+      },
+      {
+        where: {userId: req.params.id},
+        returning: true, // needed for affectedRows to be populated
+        plain: true // makes sure that the returned instances are just plain objects
+      }
+    )
+    await Cart.create({userId: req.user.id})
+    res.json(affectedCart)
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router

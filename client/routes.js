@@ -10,10 +10,13 @@ import {
   Cart,
   UserCart,
   GuestCheckout,
-  Checkout
+  Checkout,
+  UserCheckout,
+  UserOrder
 } from './components'
 import {me} from './store'
 import SingleProduct from './components/SingleProduct'
+
 // import Cart from './components/Cart'
 
 /**
@@ -37,12 +40,15 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/guest-checkout" component={GuestCheckout} />
         <Route path="/order-info" component={Checkout} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route exact path="/" component={AllProducts} />
             <Route path="/usercart" component={UserCart} />
+            <Route path="/user-order" component={UserOrder} />
+            <Route path="/user-checkout" component={UserCheckout} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
