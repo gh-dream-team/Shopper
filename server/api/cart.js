@@ -1,23 +1,19 @@
 const router = require('express').Router()
 const {Cart, Item, Product} = require('../db/models/index.js')
 
-router.get('/', async (req, res, next) => {
-  try {
-    const carts = await Cart.findAll()
-    res.json(carts)
-  } catch (error) {
-    next(error)
-  }
-})
-
 router.get('/:userId', async (req, res, next) => {
   try {
-    const id = req.user.id
-    const cart = await Cart.findAll({
+    if(req.user.id === req.params.userId){
+      const id = req.user.id
+      const cart = await Cart.findAll({
       where: {userId: id, isPurchased: false},
       include: [{model: Item, include: {model: Product}}]
     })
     res.json(cart)
+    }
+    else{
+      res.json('Must be logged in')
+    }
   } catch (error) {
     next(error)
   }

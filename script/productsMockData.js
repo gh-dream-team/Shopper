@@ -5,7 +5,7 @@ const products = [
     description:
       'Mauris lacinia sapien quis libero. Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh. In quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet. Maecenas leo odio, condimentum id, luctus nec, molestie sed, justo.',
     imageUrl:
-      'https://img1.etsystatic.com/038/0/9322811/il_570xN.625004427_i7d1.jpg',
+      'https://images-na.ssl-images-amazon.com/images/I/51U1EvbOFGL._UL1000_.jpg',
     price: 3029,
     inventory: 50
   },
@@ -25,7 +25,7 @@ const products = [
     description:
       'Pellentesque eget nunc. Donec quis orci eget orci vehicula condimentum.',
     imageUrl:
-      'https://img1.etsystatic.com/103/1/8147871/il_fullxfull.836490203_d5j0.jpg',
+      'https://cdn.shopify.com/s/files/1/0004/8132/9204/products/slap-bracelet_1024x1024.jpg?v=1522429609',
     price: 3132,
     inventory: 56
   },
@@ -84,7 +84,7 @@ const products = [
     description:
       'Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros. Vestibulum ac est lacinia nisi venenatis tristique.',
     imageUrl:
-      'https://img.etsystatic.com/il/7c12c7/882209094/il_570xN.882209094_kgg0.jpg',
+      'https://gottabeot.files.wordpress.com/2014/06/9977d-bopitextreme.jpg',
     price: 4873,
     inventory: 11
   },
@@ -103,8 +103,7 @@ const products = [
     name: 'Gelly Roll Pens',
     description:
       'Integer ac neque. Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus. In sagittis dui vel nisl. Duis ac nibh. Fusce lacus purus, aliquet at, feugiat non, pretium quis, lectus. Suspendisse potenti.',
-    imageUrl:
-      'https://www.bing.com/th?id=OIP.HUCZsP2M2mPwl3xZJPD_yAHaE8&w=300&h=200&c=7&o=5&dpr=2&pid=1.7',
+    imageUrl: 'https://www.currys.com/Products/Media/fl/Pen/GELLY.jpg',
     price: 512,
     inventory: 84
   },
@@ -114,7 +113,7 @@ const products = [
     description:
       'Donec dapibus. Duis at velit eu est congue elementum. In hac habitasse platea dictumst. Morbi vestibulum, velit id pretium iaculis, diam erat fermentum justo, nec condimentum neque sapien placerat ante. Nulla justo.',
     imageUrl:
-      'https://imgix.bustle.com/uploads/image/2018/2/18/119b6239-8456-46ae-a8d4-cb409edc3eed-butterfly-clips.jpg?w=970&h=546&fit=crop&crop=faces&auto=format&q=70&dpr=2',
+      'https://img0.etsystatic.com/132/1/12398495/il_fullxfull.933660302_gzc2.jpg',
     price: 4584,
     inventory: 80
   },
@@ -197,6 +196,16 @@ const products = [
       'http://cdn.coresites.factorymedia.com/mpora_new/wp-content/uploads/2015/03/Sony-Walkman.jpg',
     price: 3849,
     inventory: 90
+  },
+  {
+    id: 21,
+    name: 'Tamagotchi',
+    description:
+      'Suspendisse potenti. Cras in purus eu magna vulputate luctus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum sagittis sapien. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Etiam vel augue. Vestibulum rutrum rutrum neque. Aenean auctor gravida sem. Praesent id massa id nisl venenatis lacinia.',
+    imageUrl:
+      'http://us.tamagotchifriends.com/wp-content/uploads/sites/2/2013/11/37485-Tamagotchi-Pink-Heart_R1.png',
+    price: 2089,
+    inventory: 50
   }
 ]
 

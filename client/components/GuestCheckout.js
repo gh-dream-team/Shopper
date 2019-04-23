@@ -1,17 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {addGuestInfo, getGuestCart} from '../store/cart'
+import {addGuestInfo, getGuestCart, deleteGuestCart} from '../store/cart'
 import './GuestCheckout.css'
-import Checkout from './Checkout.js'
-import {Link} from 'react-router-dom'
 import {priceConverter} from '../utils'
 
 class GuestCheckout extends React.Component {
   constructor() {
     super()
-    // this.state = {
-    //   redirect: false
-    // }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   componentDidMount() {
@@ -30,8 +25,8 @@ class GuestCheckout extends React.Component {
       this.props.items,
       this.props.total
     )
+    this.props.deleteGuestCart()
     return this.props.history.push('/order-info')
-    // this.setState({redirect: true})
   }
 
   render() {
@@ -71,6 +66,6 @@ const mapState = state => ({
   items: state.cart.items
 })
 
-const mapDispatch = {addGuestInfo, getGuestCart}
+const mapDispatch = {addGuestInfo, getGuestCart, deleteGuestCart}
 
 export default connect(mapState, mapDispatch)(GuestCheckout)
