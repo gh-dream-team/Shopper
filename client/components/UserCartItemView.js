@@ -65,7 +65,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  deleteProduct: product => dispatch(deleteProduct(product)),
+  deleteProduct: (product, id) => dispatch(deleteProduct(product, id)),
   addToQuantity: (product, id) => dispatch(addToQuantity(product, id)),
   deleteFromQuantity: (product, id) => dispatch(deleteFromQuantity(product, id))
 })
