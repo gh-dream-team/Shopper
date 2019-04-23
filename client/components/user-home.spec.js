@@ -1,22 +1,20 @@
-/* global describe beforeEach it */
+// import {expect} from 'chai'
+// import React from 'react'
+// import enzyme, {shallow} from 'enzyme'
+// import Adapter from 'enzyme-adapter-react-16'
+// import {UserHome} from './user-home.js'
 
-import {expect} from 'chai'
-import React from 'react'
-import enzyme, {shallow} from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
-import {UserHome} from './user-home'
+// const adapter = new Adapter()
+// enzyme.configure({adapter})
 
-const adapter = new Adapter()
-enzyme.configure({adapter})
+// describe('UserHome', () => {
+//   let userHome
 
-describe('UserHome', () => {
-  let userHome
+//   beforeEach(() => {
+//     userHome = shallow(<UserHome username="Cody" />)
+//   })
 
-  beforeEach(() => {
-    userHome = shallow(<UserHome username="Cody" />)
-  })
-
-  it('renders the username in an h3', () => {
-    expect(userHome.find('h3').text()).to.be.equal('Welcome, Cody')
-  })
-})
+//   it('renders the username in an h3', () => {
+//     expect(userHome.find('h3').text()).to.be.equal('Welcome, Cody')
+//   })
+// })

@@ -1,22 +1,22 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import './user-home.css'
+import './user-homeCSS.css'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
   const {username} = props
-  if (username) {
-    return (
-      <div>
-        <h3>Welcome, {username}</h3>
-      </div>
-    )
-  } else {
-    return <div className="hello">Hello there!</div>
-  }
+  // if (username) {
+  return (
+    <div>
+      <h3>Welcome, {username}</h3>
+    </div>
+  )
+  // } else {
+  // return <div className="hello">Hello there!</div>
+  // }
 }
 
 /**
