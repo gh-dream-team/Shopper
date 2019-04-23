@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {priceConverter} from '../utils'
 import './Checkout.css'
 
 class Checkout extends React.Component {
   render() {
     const {order} = this.props
-    console.log("ORDER", order)
+    const total = this.props.location.total
     if (order.id) {
       return (
         <div className="receiptContainer">
@@ -14,7 +15,7 @@ class Checkout extends React.Component {
             Your recent order on the Ninety's Shopper Online Store has been
             received.
           </h3>
-          <p>Order total: ${order.total / 100}</p>
+          <p>Order total: ${priceConverter(total)}</p>
           <hr />
           <p>Your order number is {order.id}</p>
           <hr />
