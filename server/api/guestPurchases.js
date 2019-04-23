@@ -3,9 +3,16 @@ const {GuestPurchases} = require('../db/models/index.js')
 
 router.get('/', async (req, res, next) => {
   try {
-    const purchases = await GuestPurchases.findAll()
-
-    res.json(purchases)
+    if(!req.user){
+      res.send('Acess denied')
+    }
+    else if(req.user.admin) {
+      const purchases = await GuestPurchases.findAll()
+      res.json(purchases)
+    }
+    else{
+      res.send('Access denied')
+    }
   } catch (error) {
     next(error)
   }
@@ -13,7 +20,12 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const purchase = await GuestPurchases.create(req.body)
+    const purchase = await GuestPurchases.create({
+      guestName: req.body.guestName,
+      email: req.body.email,
+      address: req.body.address,
+      cart: req.body.cart
+    })
     res.json(purchase)
   } catch (err) {
     console.log('error in the guestPurchase API')
