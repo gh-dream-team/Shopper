@@ -3,17 +3,6 @@ const {Cart, Item, Product} = require('../db/models/index.js')
 
 router.get('/:userId', async (req, res, next) => {
   try {
-<<<<<<< HEAD
-    console.log(
-      'req.params.id',
-      req.params.id,
-      typeof req.params.id,
-      'req.user.id',
-      req.user.id,
-      typeof req.user.id
-    )
-=======
->>>>>>> master
     if (req.user.id === Number(req.params.userId)) {
       const id = req.user.id
       const cart = await Cart.findAll({
