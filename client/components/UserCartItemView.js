@@ -52,14 +52,14 @@ class UserCartItemView extends Component {
               <div />
             )}
           </div>
-          <div className="deleteButton">
-            <button
-              type="button"
-              onClick={() => this.props.deleteProduct(product.product.id)}
-            >
-              Delete
-            </button>
-          </div>
+        </div>
+        <div className="deleteButton">
+          <button
+            type="button"
+            onClick={() => this.props.deleteProduct(product.product.id)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     ))
