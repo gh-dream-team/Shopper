@@ -62,6 +62,7 @@ export const addToCartDb = product => async dispatch => {
 export const fetchCart = id => async dispatch => {
   try {
     const {data} = await axios.get(`/api/carts/${id}`)
+    console.log('***', data)
     dispatch(fetchedCart(data))
   } catch (error) {
     console.error(error)
@@ -81,6 +82,7 @@ export const deleteProduct = productId => async dispatch => {
 export const addToQuantity = product => async dispatch => {
   try {
     const {data} = await axios.put(`/api/carts/increment`, product)
+    console.log('DATA', data)
     dispatch(addQuantity(data))
     dispatch(fetchCart(data.cartId))
   } catch (error) {
