@@ -14,9 +14,7 @@ class UserCart extends Component {
     return (
       <div>
         <h1>WELCOME TO CART</h1>
-        {userCart.map(products => (
-          <UserCartItemView key={products.id} products={products} />
-        ))}
+        {userCart.map(products => <UserCartItemView key={products.id} />)}
 
         <p>Total: ${total / 100}</p>
       </div>

@@ -22,7 +22,10 @@ const GuestPurchases = db.define('guestpurchases', {
     allowNull: false
   },
   cart: {
-    type: Sequelize.JSONB
+    type: Sequelize.ARRAY(Sequelize.JSONB)
+  },
+  total: {
+    type: Sequelize.DECIMAL
   }
 })
 

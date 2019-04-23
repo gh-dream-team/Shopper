@@ -1,29 +1,53 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-// import {addProduct} from '../store/cart.js'
+import {increaseQuantity, decreaseQuantity} from '../store/cart.js'
 import {connect} from 'react-redux'
+import {priceConverter} from '../utils'
 
 class CartItemView extends Component {
   render() {
-    const {product} = this.props
-
+    const {cartProducts, product} = this.props
+    const cartProduct = cartProducts[0]
+    const updatedPrice = priceConverter(cartProduct.price)
     return (
       <div className="itemViewContainer">
         <div className="itemImage">
-          <img src={product.imageUrl} />
+          <img src={cartProduct.imageUrl} />
         </div>
-        <Link to={`/products/${product.id}`}>
-          <div className="itemName">{product.name}</div>
+        <Link to={`/products/${cartProduct.id}`}>
+          <div className="itemName">{cartProduct.name}</div>
         </Link>
-        <div className="itemPrice">Price: ${product.price / 100}</div>
-        <div className="itemQuantity">Quantity:{product.quantity}</div>
+        <div className="itemPrice">Price: ${updatedPrice}</div>
+        <div className="itemQuantity">Quantity:{cartProduct.quantity}</div>
+        {cartProduct.quantity < cartProduct.inventory ? (
+          <button
+            type="button"
+            onClick={() => this.props.increaseQuantity(product.id)}
+          >
+            +
+          </button>
+        ) : (
+          <div />
+        )}
+        {cartProduct.quantity > 1 ? (
+          <button
+            type="button"
+            onClick={() => this.props.decreaseQuantity(product.id)}
+          >
+            -
+          </button>
+        ) : (
+          <div />
+        )}
       </div>
     )
   }
 }
 
-// const mapDispatch = dispatch => ({
-//   addProduct: id => dispatch(addProduct(id))
-// })
+const mapDispatch = {increaseQuantity, decreaseQuantity}
 
-export default connect(null)(CartItemView)
+const mapState = (state, ownProps) => ({
+  cartProducts: state.cart.items.filter(item => item.id === ownProps.product.id)
+})
+
+export default connect(mapState, mapDispatch)(CartItemView)

@@ -4,6 +4,9 @@ import axios from 'axios'
 const ADDED_PRODUCT = 'ADDED_PRODUCT'
 const ADD_TO_CART = 'ADD_TO_CART'
 const FETCH_CART = 'FETCH_CART'
+const ADD_TO_QUANTITY = 'ADD_TO_QUANTITY'
+const SUBTRACT_FROM_QUANTITY = 'SUBTRACT_FROM_QUANTITY'
+const DELETE = 'DELETE'
 
 // ACTION CREATORS
 const addedProduct = product => ({
@@ -19,6 +22,21 @@ const addedToCartDb = cart => ({
 const fetchedCart = cart => ({
   type: FETCH_CART,
   cart
+})
+
+const deletedProduct = id => ({
+  type: DELETE,
+  id
+})
+
+const addQuantity = product => ({
+  type: ADD_TO_QUANTITY,
+  product
+})
+
+const subtractQuantity = product => ({
+  type: SUBTRACT_FROM_QUANTITY,
+  product
 })
 
 // THUNK
@@ -50,6 +68,36 @@ export const fetchCart = id => async dispatch => {
   }
 }
 
+export const deleteProduct = productId => async dispatch => {
+  try {
+    const {data} = await axios.delete(`/api/carts/${productId}`)
+    dispatch(deletedProduct(data))
+    dispatch(fetchCart(data.cartId))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const addToQuantity = product => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/carts/increment`, product)
+    dispatch(addQuantity(data))
+    dispatch(fetchCart(data.cartId))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const deleteFromQuantity = product => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/carts/decrement`, product)
+    dispatch(subtractQuantity(data))
+    dispatch(fetchCart(data.cartId))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 let initialState = []
 
 export default function(state = initialState, action) {
@@ -57,6 +105,23 @@ export default function(state = initialState, action) {
     case FETCH_CART:
       const products = action.cart[0].items.map(item => item)
       return [products]
+    case ADD_TO_QUANTITY:
+      state[0].map(product => {
+        if (product.id === action.product.id) {
+          product.quantity = action.product.quantity
+        }
+      })
+      return state
+    case SUBTRACT_FROM_QUANTITY:
+      state[0].map(product => {
+        if (product.id === action.product.id) {
+          product.quantity = action.product.quantity
+        }
+      })
+      return state
+    case DELETE:
+      state[0].filter(product => product.id !== action.id)
+      return state
     default:
       return state
   }
