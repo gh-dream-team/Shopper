@@ -11,7 +11,7 @@ export const UserHome = props => {
   if (username) {
     return (
       <div>
-        <h3>Welcome, {username}</h3>
+        <h3 className="hello">Welcome, {username}!</h3>
       </div>
     )
   } else {
