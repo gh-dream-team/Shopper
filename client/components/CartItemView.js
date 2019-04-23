@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {increaseQuantity, decreaseQuantity} from '../store/cart.js'
 import {connect} from 'react-redux'
+import {priceConverter} from '../utils'
 
 class CartItemView extends Component {
   render() {
     const {cartProducts, product} = this.props
     const cartProduct = cartProducts[0]
+    const updatedPrice = priceConverter(cartProduct.price)
     return (
       <div className="itemViewContainer">
         <div className="itemImage">
@@ -15,7 +17,7 @@ class CartItemView extends Component {
         <Link to={`/products/${cartProduct.id}`}>
           <div className="itemName">{cartProduct.name}</div>
         </Link>
-        <div className="itemPrice">Price: ${cartProduct.price / 100}</div>
+        <div className="itemPrice">Price: ${updatedPrice}</div>
         <div className="itemQuantity">Quantity:{cartProduct.quantity}</div>
         {cartProduct.quantity < cartProduct.inventory ? (
           <button
