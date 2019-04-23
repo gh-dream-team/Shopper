@@ -118,7 +118,7 @@ router.put('/checkout/:id', async (req, res, next) => {
       }
     )
     await Cart.create({userId: req.user.id})
-    console.log('affected cart in api', affectedCart)
+
     res.json(affectedCart)
   } catch (error) {
     next(error)
