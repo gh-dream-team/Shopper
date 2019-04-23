@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {increaseQuantity, decreaseQuantity} from '../store/cart.js'
 import {connect} from 'react-redux'
+import './CartItemView.css'
 import {priceConverter} from '../utils'
 
 class CartItemView extends Component {
@@ -10,35 +11,41 @@ class CartItemView extends Component {
     const cartProduct = cartProducts[0]
     const updatedPrice = priceConverter(cartProduct.price)
     return (
-      <div className="itemViewContainer">
-        <div className="itemImage">
+      <div className="cartItemViewContainer">
+        <div className="cartItemImage">
           <img src={cartProduct.imageUrl} />
         </div>
         <Link to={`/products/${cartProduct.id}`}>
-          <div className="itemName">{cartProduct.name}</div>
+          <div className="cartItemName">{cartProduct.name}</div>
         </Link>
-        <div className="itemPrice">Price: ${updatedPrice}</div>
-        <div className="itemQuantity">Quantity:{cartProduct.quantity}</div>
-        {cartProduct.quantity < cartProduct.inventory ? (
-          <button
-            type="button"
-            onClick={() => this.props.increaseQuantity(product.id)}
-          >
-            +
-          </button>
-        ) : (
-          <div />
-        )}
-        {cartProduct.quantity > 1 ? (
-          <button
-            type="button"
-            onClick={() => this.props.decreaseQuantity(product.id)}
-          >
-            -
-          </button>
-        ) : (
-          <div />
-        )}
+        <div className="cartItemPrice">Price: ${updatedPrice}</div>
+        <div className="cartItemQuantity">Quantity:{cartProduct.quantity}</div>
+        <div className="quantityButtons">
+          <div className="addButton">
+            {cartProduct.quantity < cartProduct.inventory ? (
+              <button
+                type="button"
+                onClick={() => this.props.increaseQuantity(product.id)}
+              >
+                +
+              </button>
+            ) : (
+              <div />
+            )}
+          </div>
+          <div className="decreaseButton">
+            {cartProduct.quantity > 1 ? (
+              <button
+                type="button"
+                onClick={() => this.props.decreaseQuantity(product.id)}
+              >
+                -
+              </button>
+            ) : (
+              <div />
+            )}
+          </div>
+        </div>
       </div>
     )
   }

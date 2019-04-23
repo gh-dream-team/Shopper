@@ -7,7 +7,7 @@ import UserHome from './user-home'
 import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
+  <div className="navbarContainer">
     <h1>Ninety's Shopper</h1>
     <UserHome />
     <nav>
