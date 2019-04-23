@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import {increaseQuantity, decreaseQuantity} from '../store/cart.js'
 import {connect} from 'react-redux'
+import './CartItemView.css'
 
 class CartItemView extends Component {
   render() {
@@ -9,21 +10,29 @@ class CartItemView extends Component {
     const cartProduct = cartProducts[0]
     if (cartProduct.quantity > 0) {
       return (
-        <div className="itemViewContainer">
-          <div className="itemImage">
+        <div className="cartItemViewContainer">
+          <div className="cartItemImage">
             <img src={cartProduct.imageUrl} />
           </div>
           <Link to={`/products/${cartProduct.id}`}>
-            <div className="itemName">{cartProduct.name}</div>
+            <div className="cartItemName">{cartProduct.name}</div>
           </Link>
-          <div className="itemPrice">Price: ${cartProduct.price / 100}</div>
-          <div className="itemQuantity">Quantity:{cartProduct.quantity}</div>
-          <button onClick={() => this.props.increaseQuantity(product.id)}>
-            +1
-          </button>
-          <button onClick={() => this.props.decreaseQuantity(product.id)}>
-            -1
-          </button>
+          <div className="cartItemPrice">Price: ${cartProduct.price / 100}</div>
+          <div className="cartItemQuantity">
+            Quantity:{cartProduct.quantity}
+          </div>
+          <div className="quantityButtons">
+            <div className="addButton">
+              <button onClick={() => this.props.increaseQuantity(product.id)}>
+                +
+              </button>
+            </div>
+            <div className="decreaseButton">
+              <button onClick={() => this.props.decreaseQuantity(product.id)}>
+                -
+              </button>
+            </div>
+          </div>
         </div>
       )
     } else {

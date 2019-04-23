@@ -1,0 +1,67 @@
+.guestTotal {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  font-size: 20px;
+}
+.rightGuestContainer {
+  position: fixed;
+  right: 80px;
+  display: flex;
+  flex-direction: column;
+  border-style: solid;
+  padding: 80px 50px 80px 50px;
+  line-height: 80px;
+}
+.cartItemViewContainer {
+  display: flex;
+  flex-direction: column;
+  /* flex-basis: 50%; */
+  align-items: center;
+}
+.leftGuestContainer {
+  display: flex;
+  flex-direction: column;
+}
+.guestCartContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cartItemPrice {
+  font-family: 'Playfair Display', serif;
+}
+.cartItemQuantity {
+  font-family: 'Playfair Display', serif;
+}
+.quantityButtons {
+  display: flex;
+}
+.addButton button {
+  background-color: #db5aba;
+  color: white;
+  height: 30px;
+  width: 40px;
+  border-radius: 10px;
+  outline: none;
+}
+.decreaseButton button {
+  background-color: #db5aba;
+  color: white;
+  height: 30px;
+  width: 40px;
+  border-radius: 10px;
+  outline: none;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #db1cab;
+}
+
+button:active {
+  background-color: #db1cab;
+  box-shadow: 0 1px #666;
+  transform: translateY(3px);
+}
+img {
+  object-fit: scale-down;
+}
