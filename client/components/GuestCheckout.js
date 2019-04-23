@@ -26,7 +26,10 @@ class GuestCheckout extends React.Component {
       this.props.total
     )
     this.props.deleteGuestCart()
-    return this.props.history.push('/order-info')
+    return this.props.history.push({
+      pathname: '/order-info',
+      total: this.props.total
+    })
   }
 
   render() {
