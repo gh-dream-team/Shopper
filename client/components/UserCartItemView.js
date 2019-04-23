@@ -7,67 +7,73 @@ import {
   deleteFromQuantity
 } from '../store/userCart'
 import {priceConverter} from '../utils'
+import './CartItemView.css'
 
 class UserCartItemView extends Component {
   render() {
-    const {userCart, user} = this.props
+    const {userCart} = this.props
 
     return userCart[0].map(product => (
-      <div className="itemViewContainer" key={product.product.id}>
-        <div className="itemImage">
+      <div className="cartItemViewContainer" key={product.product.id}>
+        <div className="cartItemImage">
           <img src={product.product.imageUrl} />
         </div>
         <Link to={`/products/${product.product.id}`}>
-          <div className="itemName">{product.product.name}</div>
+          <div className="cartItemName">{product.product.name}</div>
         </Link>
-        <div className="itemPrice">
+        <div className="cartItemPrice">
           Price: ${priceConverter(product.product.price)}
         </div>
-        <div className="itemQuantity">Quantity:{product.quantity}</div>
-        {product.quantity > 1 ? (
-          <button
-            type="button"
-            onClick={() =>
-              this.props.deleteFromQuantity(product.product, user.id)
-            }
-          >
-            {' '}
-            -{' '}
-          </button>
-        ) : (
-          <div />
-        )}
-        {product.quantity < product.product.inventory ? (
-          <button
-            type="button"
-            onClick={() => this.props.addToQuantity(product.product, user.id)}
-          >
-            {' '}
-            +{' '}
-          </button>
-        ) : (
-          <div />
-        )}
-        <button
-          type="button"
-          onClick={() => this.props.deleteProduct(product.product.id, user.id)}
-        >
-          Delete
-        </button>
+        <div className="cartItemQuantity">Quantity:{product.quantity}</div>
+        <div className="quantityButtons">
+          <div className="decreaseButton">
+            {product.quantity > 1 ? (
+              <button
+                type="button"
+                onClick={() => this.props.deleteFromQuantity(product.product)}
+              >
+                {' '}
+                -{' '}
+              </button>
+            ) : (
+              <div />
+            )}
+          </div>
+          <div className="addButton">
+            {product.quantity < product.product.inventory ? (
+              <button
+                type="button"
+                onClick={() => this.props.addToQuantity(product.product)}
+              >
+                {' '}
+                +{' '}
+              </button>
+            ) : (
+              <div />
+            )}
+          </div>
+          <div className="deleteButton">
+            <button
+              type="button"
+              onClick={() => this.props.deleteProduct(product.product.id)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
       </div>
     ))
   }
 }
 
 const mapState = state => ({
-  userCart: state.userCart,
-  user: state.user
+  userCart: state.userCart
 })
 
 const mapDispatch = dispatch => ({
-  deleteProduct: (product, id) => dispatch(deleteProduct(product, id)),
-  addToQuantity: (product, id) => dispatch(addToQuantity(product, id)),
-  deleteFromQuantity: (product, id) => dispatch(deleteFromQuantity(product, id))
+  deleteProduct: product => dispatch(deleteProduct(product)),
+  addToQuantity: product => dispatch(addToQuantity(product)),
+  deleteFromQuantity: product => dispatch(deleteFromQuantity(product))
 })
 
 export default connect(mapState, mapDispatch)(UserCartItemView)
