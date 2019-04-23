@@ -6,10 +6,12 @@ import {
   addToQuantity,
   deleteFromQuantity
 } from '../store/userCart'
+import {priceConverter} from '../utils'
 
 class UserCartItemView extends Component {
   render() {
     const {userCart} = this.props
+
     return userCart[0].map(product => (
       <div className="itemViewContainer" key={product.product.id}>
         <div className="itemImage">
@@ -18,7 +20,9 @@ class UserCartItemView extends Component {
         <Link to={`/products/${product.product.id}`}>
           <div className="itemName">{product.product.name}</div>
         </Link>
-        <div className="itemPrice">Price: ${product.product.price / 100}</div>
+        <div className="itemPrice">
+          Price: ${priceConverter(product.product.price)}
+        </div>
         <div className="itemQuantity">Quantity:{product.quantity}</div>
         {product.quantity > 1 ? (
           <button
