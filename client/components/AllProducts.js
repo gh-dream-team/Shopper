@@ -4,7 +4,7 @@ import {fetchProducts} from '../store/products'
 import ItemView from './ItemView'
 import './AllProducts.css'
 
-class AllProducts extends Component {
+export class AllProducts extends Component {
   componentDidMount() {
     this.props.fetchProducts()
   }

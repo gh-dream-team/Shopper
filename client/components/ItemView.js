@@ -6,7 +6,7 @@ import {connect} from 'react-redux'
 import {priceConverter} from '../utils'
 import './ItemView.css'
 
-class ItemView extends Component {
+export class ItemView extends Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
