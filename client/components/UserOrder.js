@@ -9,7 +9,8 @@ class UserCheckout extends React.Component {
   }
 
   render() {
-    const {order} = this.props
+    const {order, total} = this.props
+    console.log('order', order, 'total:', total)
     return (
       <div>
         <h1>Thank you for your order!</h1>
@@ -17,7 +18,7 @@ class UserCheckout extends React.Component {
           Your recent order on the Ninety's Shopper Online Store has been
           received.
         </h3>
-        <p>Order total: ${order.total / 100}</p>
+        <p>Order total: ${priceConverter(total)}</p>
         <hr />
         <p>Your order number is {order.id}</p>
       </div>
@@ -26,7 +27,8 @@ class UserCheckout extends React.Component {
 }
 
 const mapState = state => ({
-  order: state.userOrder
+  order: state.userOrder.order,
+  total: state.userOrder.total
 })
 
 const mapDispatch = {checkout}

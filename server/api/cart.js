@@ -3,15 +3,22 @@ const {Cart, Item, Product} = require('../db/models/index.js')
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    if(req.user.id === req.params.userId){
+    console.log(
+      'req.params.id',
+      req.params.id,
+      typeof req.params.id,
+      'req.user.id',
+      req.user.id,
+      typeof req.user.id
+    )
+    if (req.user.id === Number(req.params.userId)) {
       const id = req.user.id
       const cart = await Cart.findAll({
-      where: {userId: id, isPurchased: false},
-      include: [{model: Item, include: {model: Product}}]
-    })
-    res.json(cart)
-    }
-    else{
+        where: {userId: id, isPurchased: false},
+        include: [{model: Item, include: {model: Product}}]
+      })
+      res.json(cart)
+    } else {
       res.json('Must be logged in')
     }
   } catch (error) {
@@ -118,6 +125,7 @@ router.put('/checkout/:id', async (req, res, next) => {
         plain: true // makes sure that the returned instances are just plain objects
       }
     )
+    await Cart.create({userId: req.user.id})
     res.json(affectedCart)
   } catch (error) {
     next(error)

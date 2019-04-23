@@ -2,16 +2,22 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchCart} from '../store/userCart'
 import UserCartItemView from './UserCartItemView'
-import UserCheckout from './UserCheckout'
+import {checkout} from '../store/userOrder'
+import {priceConverter} from '../utils'
 
 class UserCart extends Component {
   componentDidMount() {
     const {user} = this.props
     this.props.fetchCart(user.id)
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick(id, total) {
+    this.props.checkout(id, total)
+    return this.props.history.push('/user-order')
   }
 
   render() {
-    const {total, userCart} = this.props
+    const {total, userCart, checkout, user} = this.props
 
     return (
       <div>
@@ -19,9 +25,16 @@ class UserCart extends Component {
         <div className="userCartContainer">
           {userCart.map(products => <UserCartItemView key={products.id} />)}
 
-          <p>Total: ${total / 100}</p>
+          <p>Total: ${priceConverter(total)}</p>
         </div>
-        <UserCheckout />
+        <div>
+          <button
+            type="button"
+            onClick={() => this.handleClick(user.id, total)}
+          >
+            Submit Order{' '}
+          </button>
+        </div>
       </div>
     )
   }
@@ -39,7 +52,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: id => dispatch(fetchCart(id))
+  fetchCart: id => dispatch(fetchCart(id)),
+  checkout: (id, total) => dispatch(checkout(id, total))
 })
 
 export default connect(mapState, mapDispatch)(UserCart)

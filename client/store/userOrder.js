@@ -5,27 +5,29 @@ const ORDER = 'ORDER'
 
 //ACTION CREATORS
 
-const addOrder = order => ({
+const addOrder = (order, total) => ({
   type: ORDER,
-  order
+  order,
+  total
 })
 
 // Thunks
-export const checkout = id => async dispatch => {
+export const checkout = (id, total) => async dispatch => {
   try {
-    let order = await axios.put(`api/carts/checkout/${id}`)
-    dispatch(addOrder(order))
+    let {data} = await axios.put(`api/carts/checkout/${id}`)
+    console.log('total', total)
+    dispatch(addOrder(data, total))
   } catch (err) {
     console.log('error in the userCart:', err)
   }
 }
 
-const initialState = {}
+const initialState = {order: {}, total: 0}
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case ORDER:
-      return action.order
+      return {...state, order: action.order, total: action.total}
     default:
       return state
   }
