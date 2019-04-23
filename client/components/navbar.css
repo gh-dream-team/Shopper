@@ -21,6 +21,6 @@ a {
   font-size: 18px;
 }
 
-a:hover {
+.links a:hover {
   text-decoration: underline;
 }

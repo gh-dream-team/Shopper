@@ -1,8 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {addGuestInfo, getGuestCart} from '../store/cart'
-import Checkout from './Checkout.js'
-import {Link} from 'react-router-dom'
+import './GuestCheckout.css'
 
 class GuestCheckout extends React.Component {
   constructor() {
@@ -48,9 +47,11 @@ class GuestCheckout extends React.Component {
             Address:
             <input type="text" name="address" required={true} />
           </label>
-          <div className="total">Total: ${this.props.total}</div>
+          <div className="bottomInfo">
+            <div className="total">Total: ${this.props.total}</div>
 
-          <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" />
+          </div>
         </form>
       </div>
     )

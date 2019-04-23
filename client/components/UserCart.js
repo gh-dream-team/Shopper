@@ -14,11 +14,13 @@ class UserCart extends Component {
     return (
       <div>
         <h1>WELCOME TO CART</h1>
-        {userCart.map(products => (
-          <UserCartItemView key={products.id} products={products} />
-        ))}
+        <div className="userCartContainer">
+          {userCart.map(products => (
+            <UserCartItemView key={products.id} products={products} />
+          ))}
 
-        <p>Total: ${total / 100}</p>
+          <p>Total: ${total / 100}</p>
+        </div>
       </div>
     )
   }

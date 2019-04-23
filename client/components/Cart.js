@@ -31,7 +31,6 @@ class Cart extends Component {
               <button type="button">
                 <Link to="/guest-checkout">Checkout Form</Link>{' '}
               </button>
-
               <button onClick={() => deleteGuestCart()}>Clear Cart</button>
             </div>
           </div>
