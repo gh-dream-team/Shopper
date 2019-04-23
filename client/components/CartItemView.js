@@ -7,28 +7,38 @@ class CartItemView extends Component {
   render() {
     const {cartProducts, product} = this.props
     const cartProduct = cartProducts[0]
-    if (cartProduct.quantity > 0) {
-      return (
-        <div className="itemViewContainer">
-          <div className="itemImage">
-            <img src={cartProduct.imageUrl} />
-          </div>
-          <Link to={`/products/${cartProduct.id}`}>
-            <div className="itemName">{cartProduct.name}</div>
-          </Link>
-          <div className="itemPrice">Price: ${cartProduct.price / 100}</div>
-          <div className="itemQuantity">Quantity:{cartProduct.quantity}</div>
-          <button onClick={() => this.props.increaseQuantity(product.id)}>
-            +1
-          </button>
-          <button onClick={() => this.props.decreaseQuantity(product.id)}>
-            -1
-          </button>
+    return (
+      <div className="itemViewContainer">
+        <div className="itemImage">
+          <img src={cartProduct.imageUrl} />
         </div>
-      )
-    } else {
-      return <p />
-    }
+        <Link to={`/products/${cartProduct.id}`}>
+          <div className="itemName">{cartProduct.name}</div>
+        </Link>
+        <div className="itemPrice">Price: ${cartProduct.price / 100}</div>
+        <div className="itemQuantity">Quantity:{cartProduct.quantity}</div>
+        {cartProduct.quantity < cartProduct.inventory ? (
+          <button
+            type="button"
+            onClick={() => this.props.increaseQuantity(product.id)}
+          >
+            +
+          </button>
+        ) : (
+          <div />
+        )}
+        {cartProduct.quantity > 1 ? (
+          <button
+            type="button"
+            onClick={() => this.props.decreaseQuantity(product.id)}
+          >
+            -
+          </button>
+        ) : (
+          <div />
+        )}
+      </div>
+    )
   }
 }
 

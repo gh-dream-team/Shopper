@@ -105,7 +105,22 @@ export default function(state = initialState, action) {
     case FETCH_CART:
       const products = action.cart[0].items.map(item => item)
       return [products]
+    case ADD_TO_QUANTITY:
+      state[0].map(product => {
+        if (product.id === action.product.id) {
+          product.quantity = action.product.quantity
+        }
+      })
+      return state
+    case SUBTRACT_FROM_QUANTITY:
+      state[0].map(product => {
+        if (product.id === action.product.id) {
+          product.quantity = action.product.quantity
+        }
+      })
+      return state
     case DELETE:
+      state[0].filter(product => product.id !== action.id)
       return state
     default:
       return state
