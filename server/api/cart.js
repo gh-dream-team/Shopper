@@ -125,4 +125,21 @@ router.put('/checkout/:id', async (req, res, next) => {
   }
 })
 
+router.get('/orders/:userId', async (req, res, next) => {
+  try {
+    if (req.user.id === Number(req.params.userId)) {
+      const id = req.user.id
+      const carts = await Cart.findAll({
+        where: {userId: id, isPurchased: true},
+        include: [{model: Item, include: {model: Product}}]
+      })
+      res.json(carts)
+    } else {
+      res.json('Must be logged in')
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 module.exports = router
