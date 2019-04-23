@@ -3,9 +3,16 @@ const {GuestPurchases} = require('../db/models/index.js')
 
 router.get('/', async (req, res, next) => {
   try {
-    const purchases = await GuestPurchases.findAll()
-
-    res.json(purchases)
+    if(!req.user){
+      res.send('Acess denied')
+    }
+    else if(req.user.admin) {
+      const purchases = await GuestPurchases.findAll()
+      res.json(purchases)
+    }
+    else{
+      res.send('Access denied')
+    }
   } catch (error) {
     next(error)
   }

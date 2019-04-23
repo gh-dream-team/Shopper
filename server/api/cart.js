@@ -1,18 +1,17 @@
 const router = require('express').Router()
 const {Cart, Item, Product} = require('../db/models/index.js')
 
-router.get('/', async (req, res, next) => {
-  try {
-    const carts = await Cart.findAll()
-    res.json(carts)
-  } catch (error) {
-    next(error)
-  }
-})
+// router.get('/', async (req, res, next) => {
+//   try {
+//     const carts = await Cart.findAll()
+//     res.json(carts)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    // console.log("USERID", req.params.us)
     if(req.user.id === req.params.userId){
       const id = req.user.id
       const cart = await Cart.findAll({
