@@ -49,8 +49,8 @@ class Routes extends Component {
             <Route exact path="/" component={AllProducts} />
             <Route path="/usercart" component={UserCart} />
             <Route path="/user-order" component={UserOrder} />
-            <Route path="/user-checkout" component={UserCheckout} />
             <Route path="/user-account" component={UserAccount} />
+            {/* <Route path="/user-checkout" component={UserCheckout} /> */}
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
