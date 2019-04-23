@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchCart} from '../store/userCart'
 import UserCartItemView from './UserCartItemView'
+import UserCheckout from './UserCheckout'
 
 class UserCart extends Component {
   componentDidMount() {
@@ -11,6 +12,7 @@ class UserCart extends Component {
 
   render() {
     const {total, userCart} = this.props
+
     return (
       <div>
         <h1>WELCOME TO CART</h1>
@@ -19,6 +21,7 @@ class UserCart extends Component {
 
           <p>Total: ${total / 100}</p>
         </div>
+        <UserCheckout />
       </div>
     )
   }
