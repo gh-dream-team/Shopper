@@ -25,7 +25,7 @@ router.post('/', async (req, res, next) => {
       email: req.body.email,
       address: req.body.address,
       cart: req.body.cart
-    }) //deconstruct the object body
+    })
     res.json(purchase)
   } catch (err) {
     console.log('error in the guestPurchase API')
