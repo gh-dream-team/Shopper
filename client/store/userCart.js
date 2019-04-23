@@ -62,7 +62,6 @@ export const addToCartDb = product => async dispatch => {
 export const fetchCart = id => async dispatch => {
   try {
     const {data} = await axios.get(`/api/carts/${id}`)
-    console.log('***', data)
     dispatch(fetchedCart(data))
   } catch (error) {
     console.error(error)
