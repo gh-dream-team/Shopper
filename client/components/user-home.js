@@ -15,7 +15,7 @@ export const UserHome = props => {
       </div>
     )
   } else {
-    return <div className="hello">Hello there!</div>
+    return <div id="hello">Hello there!</div>
   }
 }
 

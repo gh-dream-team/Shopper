@@ -37,7 +37,7 @@ router.put('/up', (req, res, next) => {
 
 router.put('/down', (req, res, next) => {
   let id = req.body.id
-  console.log(req.session.cart, 'req.session.cart in session api')
+
   if (req.session.cart[id] > 0) {
     req.session.cart[id]--
   } else {
@@ -65,6 +65,12 @@ router.put('/many', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
+})
+
+router.delete('/delete/:id', (req, res, next) => {
+  let id = req.params.id
+  delete req.session.cart[id]
+  res.send(req.session.cart)
 })
 
 module.exports = router
