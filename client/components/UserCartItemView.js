@@ -10,7 +10,7 @@ import {priceConverter} from '../utils'
 
 class UserCartItemView extends Component {
   render() {
-    const {userCart, user} = this.props
+    const {userCart} = this.props
 
     return userCart[0].map(product => (
       <div className="itemViewContainer" key={product.product.id}>
@@ -27,9 +27,7 @@ class UserCartItemView extends Component {
         {product.quantity > 1 ? (
           <button
             type="button"
-            onClick={() =>
-              this.props.deleteFromQuantity(product.product, user.id)
-            }
+            onClick={() => this.props.deleteFromQuantity(product.product)}
           >
             {' '}
             -{' '}
@@ -40,7 +38,7 @@ class UserCartItemView extends Component {
         {product.quantity < product.product.inventory ? (
           <button
             type="button"
-            onClick={() => this.props.addToQuantity(product.product, user.id)}
+            onClick={() => this.props.addToQuantity(product.product)}
           >
             {' '}
             +{' '}
@@ -50,7 +48,7 @@ class UserCartItemView extends Component {
         )}
         <button
           type="button"
-          onClick={() => this.props.deleteProduct(product.product.id, user.id)}
+          onClick={() => this.props.deleteProduct(product.product.id)}
         >
           Delete
         </button>
@@ -60,14 +58,13 @@ class UserCartItemView extends Component {
 }
 
 const mapState = state => ({
-  userCart: state.userCart,
-  user: state.user
+  userCart: state.userCart
 })
 
 const mapDispatch = dispatch => ({
-  deleteProduct: (product, id) => dispatch(deleteProduct(product, id)),
-  addToQuantity: (product, id) => dispatch(addToQuantity(product, id)),
-  deleteFromQuantity: (product, id) => dispatch(deleteFromQuantity(product, id))
+  deleteProduct: product => dispatch(deleteProduct(product)),
+  addToQuantity: product => dispatch(addToQuantity(product)),
+  deleteFromQuantity: product => dispatch(deleteFromQuantity(product))
 })
 
 export default connect(mapState, mapDispatch)(UserCartItemView)

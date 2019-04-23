@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import axios from 'axios'
 
 // ACTION TYPES
@@ -51,7 +52,6 @@ export const addProduct = id => async dispatch => {
 
 export const addToCartDb = product => async dispatch => {
   try {
-    // update the db
     const {data} = await axios.put(`/api/carts`, product)
     dispatch(addedToCartDb(data))
   } catch (error) {
@@ -68,31 +68,28 @@ export const fetchCart = id => async dispatch => {
   }
 }
 
-export const deleteProduct = (productId, id) => async dispatch => {
+export const deleteProduct = productId => async dispatch => {
   try {
     const {data} = await axios.delete(`/api/carts/${productId}`)
     dispatch(deletedProduct(data))
-    dispatch(fetchCart(id))
   } catch (error) {
     console.error(error)
   }
 }
 
-export const addToQuantity = (product, id) => async dispatch => {
+export const addToQuantity = product => async dispatch => {
   try {
     const {data} = await axios.put(`/api/carts/increment`, product)
     dispatch(addQuantity(data))
-    dispatch(fetchCart(id))
   } catch (error) {
     console.error(error)
   }
 }
 
-export const deleteFromQuantity = (product, id) => async dispatch => {
+export const deleteFromQuantity = product => async dispatch => {
   try {
     const {data} = await axios.put(`/api/carts/decrement`, product)
     dispatch(subtractQuantity(data))
-    dispatch(fetchCart(id))
   } catch (error) {
     console.error(error)
   }
@@ -106,22 +103,28 @@ export default function(state = initialState, action) {
       const products = action.cart[0].items.map(item => item)
       return [products]
     case ADD_TO_QUANTITY:
-      state[0].map(product => {
+      const addedQuant = state[0].map(product => {
         if (product.id === action.product.id) {
-          product.quantity = action.product.quantity
+          return {...product, quantity: action.product.quantity}
+        } else {
+          return product
         }
       })
-      return state
+      return [addedQuant]
     case SUBTRACT_FROM_QUANTITY:
-      state[0].map(product => {
+      const deletedQuant = state[0].map(product => {
         if (product.id === action.product.id) {
-          product.quantity = action.product.quantity
+          return {...product, quantity: action.product.quantity}
+        } else {
+          return product
         }
       })
-      return state
+      return [deletedQuant]
     case DELETE:
-      state[0].filter(product => product.id !== action.id)
-      return state
+      const newState = state[0].filter(
+        product => product.productId !== Number(action.id)
+      )
+      return [newState]
     default:
       return state
   }
