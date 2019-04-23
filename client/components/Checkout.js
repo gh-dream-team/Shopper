@@ -5,6 +5,7 @@ import './Checkout.css'
 class Checkout extends React.Component {
   render() {
     const {order} = this.props
+    console.log("ORDER", order)
     if (order.id) {
       return (
         <div className="receiptContainer">
