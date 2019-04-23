@@ -72,27 +72,27 @@ export const deleteProduct = productId => async dispatch => {
   try {
     const {data} = await axios.delete(`/api/carts/${productId}`)
     dispatch(deletedProduct(data))
-    dispatch(fetchCart(data.cartId))
+    dispatch(fetchCart(data.userId))
   } catch (error) {
     console.error(error)
   }
 }
 
-export const addToQuantity = product => async dispatch => {
+export const addToQuantity = (product, id) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/carts/increment`, product)
     dispatch(addQuantity(data))
-    dispatch(fetchCart(data.cartId))
+    dispatch(fetchCart(id))
   } catch (error) {
     console.error(error)
   }
 }
 
-export const deleteFromQuantity = product => async dispatch => {
+export const deleteFromQuantity = (product, id) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/carts/decrement`, product)
     dispatch(subtractQuantity(data))
-    dispatch(fetchCart(data.cartId))
+    dispatch(fetchCart(id))
   } catch (error) {
     console.error(error)
   }

@@ -3,15 +3,14 @@ const {Cart, Item, Product} = require('../db/models/index.js')
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    if(req.user.id === req.params.userId){
+    if (req.user.id === Number(req.params.userId)) {
       const id = req.user.id
       const cart = await Cart.findAll({
-      where: {userId: id, isPurchased: false},
-      include: [{model: Item, include: {model: Product}}]
-    })
-    res.json(cart)
-    }
-    else{
+        where: {userId: id, isPurchased: false},
+        include: [{model: Item, include: {model: Product}}]
+      })
+      res.json(cart)
+    } else {
       res.json('Must be logged in')
     }
   } catch (error) {
