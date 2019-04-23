@@ -24,7 +24,8 @@ router.post('/', async (req, res, next) => {
       guestName: req.body.guestName,
       email: req.body.email,
       address: req.body.address,
-      cart: req.body.cart
+      cart: req.body.cart,
+      total: req.body.total
     })
     res.json(purchase)
   } catch (err) {

@@ -11,7 +11,6 @@ const GuestPurchases = db.define('guestpurchases', {
   },
   email: {
     type: Sequelize.STRING,
-    unique: true,
     allowNull: false,
     validate: {
       isEmail: true
