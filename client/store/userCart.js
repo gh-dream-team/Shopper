@@ -80,6 +80,7 @@ export const deleteProduct = productId => async dispatch => {
 export const addToQuantity = product => async dispatch => {
   try {
     const {data} = await axios.put(`/api/carts/increment`, product)
+    console.log('DATA', data)
     dispatch(addQuantity(data))
   } catch (error) {
     console.error(error)

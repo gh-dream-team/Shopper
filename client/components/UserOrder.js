@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {checkout} from '../store/userOrder'
 import {priceConverter} from '../utils'
+import './Checkout.css'
 
 class UserCheckout extends React.Component {
   constructor() {
@@ -12,7 +13,7 @@ class UserCheckout extends React.Component {
     const {order, total} = this.props
     console.log('order', order, 'total:', total)
     return (
-      <div>
+      <div className="receiptContainer">
         <h1>Thank you for your order!</h1>
         <h3>
           Your recent order on the Ninety's Shopper Online Store has been

@@ -23,17 +23,21 @@ class UserCart extends Component {
       <div>
         <h1>WELCOME TO CART</h1>
         <div className="userCartContainer">
-          {userCart.map(products => <UserCartItemView key={products.id} />)}
+          <div className="leftUserContainer">
+            {userCart.map(products => <UserCartItemView key={products.id} />)}
+          </div>
+          <div className="rightUserContainer">
+            <div className="userTotal">Total: ${priceConverter(total)}</div>
 
-          <p>Total: ${priceConverter(total)}</p>
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={() => this.handleClick(user.id, total)}
-          >
-            Submit Order{' '}
-          </button>
+            <div className="submitOrder">
+              <button
+                type="button"
+                onClick={() => this.handleClick(user.id, total)}
+              >
+                Submit Order{' '}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     )

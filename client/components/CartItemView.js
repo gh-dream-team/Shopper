@@ -44,12 +44,12 @@ class CartItemView extends Component {
             ) : (
               <div />
             )}
-            <div>
-              <button type="button" onClick={() => deleteItem(cartProduct.id)}>
-                Delete Item
-              </button>
-            </div>
           </div>
+        </div>
+        <div className="deleteButton">
+          <button type="button" onClick={() => deleteItem(cartProduct.id)}>
+            Delete Item
+          </button>
         </div>
       </div>
     )

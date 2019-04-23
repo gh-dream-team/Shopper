@@ -11,11 +11,11 @@ export const UserHome = props => {
   if (username) {
     return (
       <div>
-        <h3>Welcome, {username}</h3>
+        <h3 className="hello">Welcome, {username}!</h3>
       </div>
     )
   } else {
-    return <div id="hello">Hello there!</div>
+    return <div className="hello">Hello there!</div>
   }
 }
 
