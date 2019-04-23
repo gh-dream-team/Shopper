@@ -1,12 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import './Checkout.css'
 
 class Checkout extends React.Component {
   render() {
     const {order} = this.props
     if (order.id) {
       return (
-        <div>
+        <div className="receiptContainer">
           <h1>Thank you for your order!</h1>
           <h3>
             Your recent order on the Ninety's Shopper Online Store has been
@@ -16,7 +17,7 @@ class Checkout extends React.Component {
           <hr />
           <p>Your order number is {order.id}</p>
           <hr />
-          <p>Your address is {order.address}</p>
+          <p>Your shipping address is {order.address}</p>
         </div>
       )
     } else {
