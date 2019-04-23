@@ -6,6 +6,7 @@ const LOADING = 'LOADING'
 const ADD_QUANT = 'ADD_QUANT'
 const EMPTY_CART = 'EMPTY_CART'
 const ADD_INFO = 'ADD_INFO'
+const DELETE_ITEM = 'DELETE_ITEM'
 
 //ACTION CREATORS
 const addedCart = cart => ({
@@ -29,6 +30,11 @@ export const emptyCart = () => ({
 const addInfo = info => ({
   type: ADD_INFO,
   info
+})
+
+const deletedItem = id => ({
+  type: DELETE_ITEM,
+  id
 })
 
 //THUNK
@@ -100,6 +106,16 @@ export const decreaseQuantity = id => async dispatch => {
     dispatch(addQuant(data))
   } catch (err) {
     console.log('error increasing quantity in cart store', err)
+  }
+}
+
+export const deleteItem = id => async dispatch => {
+  try {
+    let cart = await axios.delete(`/api/session/delete/${id}`)
+
+    dispatch(getGuestCart())
+  } catch (err) {
+    console.log('error deleting item in cart store', err)
   }
 }
 
