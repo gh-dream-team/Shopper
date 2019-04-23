@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import CartItemView from './CartItemView'
 import {getGuestCart, deleteGuestCart} from '../store/cart'
 import {Link} from 'react-router-dom'
+import './CartItemView.css'
 import {priceConverter} from '../utils'
 
 class Cart extends Component {
@@ -19,16 +20,23 @@ class Cart extends Component {
       return (
         <div>
           <h1>WELCOME TO CART</h1>
-          {items.map(product => (
-            <CartItemView key={product.id} product={product} />
-          ))}
-          <p>Total: ${priceConverter(total)}</p>
+          <div className="guestCartContainer">
+            <div className="leftGuestContainer">
+              {items.map(product => (
+                <CartItemView key={product.id} product={product} />
+              ))}
+            </div>
+            <div className="rightGuestContainer">
+              <div className="guestTotal">
+                Total(USD): ${priceConverter(total)}
+              </div>
 
-          <button type="button">
-            <Link to="/guest-checkout">Checkout Form</Link>{' '}
-          </button>
-
-          <button onClick={() => deleteGuestCart()}>Clear Cart</button>
+              <button type="button">
+                <Link to="/guest-checkout">Checkout Form</Link>{' '}
+              </button>
+              <button onClick={() => deleteGuestCart()}>Clear Cart</button>
+            </div>
+          </div>
         </div>
       )
     }
