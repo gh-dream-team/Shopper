@@ -4,6 +4,7 @@ import CartItemView from './CartItemView'
 import {getGuestCart, deleteGuestCart} from '../store/cart'
 import {Link} from 'react-router-dom'
 import './CartItemView.css'
+import {priceConverter} from '../utils'
 
 class Cart extends Component {
   componentDidMount() {
@@ -26,7 +27,9 @@ class Cart extends Component {
               ))}
             </div>
             <div className="rightGuestContainer">
-              <div className="guestTotal">Total(USD): ${total / 100}</div>
+              <div className="guestTotal">
+                Total(USD): ${priceConverter(total)}
+              </div>
 
               <button type="button">
                 <Link to="/guest-checkout">Checkout Form</Link>{' '}

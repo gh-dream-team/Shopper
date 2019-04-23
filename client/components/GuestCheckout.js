@@ -2,6 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {addGuestInfo, getGuestCart} from '../store/cart'
 import './GuestCheckout.css'
+import Checkout from './Checkout.js'
+import {Link} from 'react-router-dom'
+import {priceConverter} from '../utils'
 
 class GuestCheckout extends React.Component {
   constructor() {
@@ -41,14 +44,16 @@ class GuestCheckout extends React.Component {
           </label>
           <label>
             Email:
-            <input type="text" name="email" required={true} />
+            <input type="email" name="email" required={true} />
           </label>
           <label>
             Address:
             <input type="text" name="address" required={true} />
           </label>
           <div className="bottomInfo">
-            <div className="total">Total: ${this.props.total}</div>
+            <div className="total">
+              Total: ${priceConverter(this.props.total)}
+            </div>
 
             <input type="submit" value="Submit" />
           </div>

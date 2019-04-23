@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {getProduct} from '../store/product'
 import {addGuestProduct} from '../store/cart'
 import {addProduct, addToCartDb} from '../store/userCart'
+import {priceConverter} from '../utils'
 import './SingleProduct.css'
 
 class SingleProduct extends Component {
@@ -32,7 +33,9 @@ class SingleProduct extends Component {
         </div>
         <div className="productInfo">
           <div className="productName">{product.name}</div>
-          <div className="productPrice">Price: ${product.price / 100}</div>
+          <div className="productPrice">
+            Price: ${priceConverter(product.price)}
+          </div>
           <div className="productDescription">{product.description}</div>
           <div className="addToCart">
             <button type="button" onClick={this.handleClick}>
