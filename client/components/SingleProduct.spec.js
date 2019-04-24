@@ -21,9 +21,15 @@ describe('<SingleProduct />', () => {
     price: 1893
    }
 
-  let SingleProductwrapper= shallow(<Provider store={store}><SingleProduct product={selectedProduct}/> </Provider> ).dive()
+  let SingleProductwrapper= shallow(<Provider store={store}><SingleProduct product={selectedProduct} name="Baby G Watch"/> </Provider> )
+
+//   it("includes the product's imageUrl as a img", () => {
+//     expect(SingleProductwrapper.find("imageUrl").text()).to.be.equal("https://casiocdn.com/casio-v2/resource/images/products/watches/small/BG169R-3_small.png")
+//   });
 
   it("includes the product's imageUrl as a img", () => {
-    expect(SingleProductwrapper.find("img").text()).to.be.equal("https://casiocdn.com/casio-v2/resource/images/products/watches/small/BG169R-3_small.png")
+    expect(SingleProductwrapper.props().name).to.equal('Baby G Watch');
   });
+
+
 })
