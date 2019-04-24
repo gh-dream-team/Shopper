@@ -8,7 +8,7 @@ import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="navbarContainer">
-    <h1>Ninety's Shopper</h1>
+    <img src="https://i.imgur.com/3lZ9TrH.png" />
     <UserHome />
     <nav>
       {isLoggedIn ? (
