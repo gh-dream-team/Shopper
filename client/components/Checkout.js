@@ -12,13 +12,13 @@ export class Checkout extends React.Component {
       return (
         <div className="receiptContainer">
           <h1>Thank you for your order!</h1>
-          <p>
+          <h3>
             Your recent order on the Ninety's Shopper Online Store has been
             received.
-          </p>
+          </h3>
           <p>Order total: ${priceConverter(total)}</p>
           <hr />
-          <h3>Your order number is {order.id}</h3>
+          <p>Your order number is {order.id}</p>
           <hr />
           <p>Your shipping address is {order.address}</p>
         </div>

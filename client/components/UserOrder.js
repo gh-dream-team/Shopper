@@ -4,7 +4,7 @@ import {checkout} from '../store/userOrder'
 import {priceConverter} from '../utils'
 import './Checkout.css'
 
-class UserCheckout extends React.Component {
+export class UserCheckout extends React.Component {
   constructor() {
     super()
   }
@@ -15,11 +15,11 @@ class UserCheckout extends React.Component {
     return (
       <div className="receiptContainer">
         <h1>Thank you for your order!</h1>
-        <h3>
+        <p>
           Your recent order on the Ninety's Shopper Online Store has been
           received.
-        </h3>
-        <p>Order total: ${priceConverter(total)}</p>
+        </p>
+        <h3>Order total: ${priceConverter(total)}</h3>
         <hr />
         <p>Your order number is {order.id}</p>
       </div>
