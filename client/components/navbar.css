@@ -1,5 +1,6 @@
 .navbarContainer {
   background-color: #f9c80e;
+  text-align: center;
 }
 h1 {
   text-align: center;
@@ -8,6 +9,9 @@ h1 {
 }
 .navbarContainer h1 {
   padding-top: 30px;
+}
+.navbarContainer img {
+  margin: -40px;
 }
 
 nav {
