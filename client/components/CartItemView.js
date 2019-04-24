@@ -1,29 +1,65 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {addProduct} from '../store/cart.js'
+import {increaseQuantity, decreaseQuantity, deleteItem} from '../store/cart.js'
 import {connect} from 'react-redux'
+import './CartItemView.css'
+import {priceConverter} from '../utils'
 
 class CartItemView extends Component {
   render() {
-    const {product} = this.props
-    console.log(product, 'in cart item view')
+    const {cartProducts, product, deleteItem} = this.props
+    const cartProduct = cartProducts[0]
+    const updatedPrice = priceConverter(cartProduct.price)
     return (
-      <div className="itemViewContainer">
-        <div className="itemImage">
-          <img src={product.imageUrl} />
+      <div className="cartItemViewContainer">
+        <div className="cartItemImage">
+          <img src={cartProduct.imageUrl} />
         </div>
-        <Link to={`/products/${product.id}`}>
-          <div className="itemName">{product.name}</div>
+        <Link to={`/products/${cartProduct.id}`}>
+          <div className="cartItemName">{cartProduct.name}</div>
         </Link>
-        <div className="itemPrice">Price: ${product.price}</div>
-        <div className="itemQuantity">Quantity:{product.quantity}</div>
+        <div className="cartItemPrice">Price: ${updatedPrice}</div>
+        <div className="cartItemQuantity">Quantity:{cartProduct.quantity}</div>
+        <div className="quantityButtons">
+          <div className="addButton">
+            {cartProduct.quantity < cartProduct.inventory ? (
+              <button
+                type="button"
+                onClick={() => this.props.increaseQuantity(product.id)}
+              >
+                +
+              </button>
+            ) : (
+              <div />
+            )}
+          </div>
+          <div className="decreaseButton">
+            {cartProduct.quantity > 1 ? (
+              <button
+                type="button"
+                onClick={() => this.props.decreaseQuantity(product.id)}
+              >
+                -
+              </button>
+            ) : (
+              <div />
+            )}
+          </div>
+        </div>
+        <div className="deleteButton">
+          <button type="button" onClick={() => deleteItem(cartProduct.id)}>
+            Delete Item
+          </button>
+        </div>
       </div>
     )
   }
 }
 
-const mapDispatch = dispatch => ({
-  addProduct: id => dispatch(addProduct(id))
+const mapDispatch = {increaseQuantity, decreaseQuantity, deleteItem}
+
+const mapState = (state, ownProps) => ({
+  cartProducts: state.cart.items.filter(item => item.id === ownProps.product.id)
 })
 
-export default connect(null, mapDispatch)(CartItemView)
+export default connect(mapState, mapDispatch)(CartItemView)

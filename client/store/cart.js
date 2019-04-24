@@ -3,6 +3,10 @@ import axios from 'axios'
 //ACTION TYPES
 const ADDED_CART = 'ADDED_CART'
 const LOADING = 'LOADING'
+const ADD_QUANT = 'ADD_QUANT'
+const EMPTY_CART = 'EMPTY_CART'
+const ADD_INFO = 'ADD_INFO'
+const DELETE_ITEM = 'DELETE_ITEM'
 
 //ACTION CREATORS
 const addedCart = cart => ({
@@ -14,21 +18,38 @@ const loading = bool => ({
   loading: bool
 })
 
+const addQuant = cart => ({
+  type: ADD_QUANT,
+  cart
+})
+
+export const emptyCart = () => ({
+  type: EMPTY_CART
+})
+
+const addInfo = info => ({
+  type: ADD_INFO,
+  info
+})
+
+const deletedItem = id => ({
+  type: DELETE_ITEM,
+  id
+})
+
 //THUNK
-export const addProduct = id => async dispatch => {
+export const addGuestProduct = id => async dispatch => {
   try {
-    await axios.put(`/api/session/${id}`)
+    await axios.get(`/api/session/${id}`)
   } catch (error) {
     console.error(error)
   }
 }
 
-export const getGuestCart = () => async dispatch => {
-  dispatch(loading(true))
+export const deleteGuestCart = () => async dispatch => {
   try {
-    let {data} = await axios.get('/api/session')
-
-    dispatch(getCartItems(data))
+    await axios.delete('api/session/clear')
+    dispatch(emptyCart())
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)
   }
@@ -37,21 +58,64 @@ export const getGuestCart = () => async dispatch => {
 const getCartItems = cart => async dispatch => {
   try {
     let itemIds = Object.keys(cart)
-    console.log(itemIds[0])
-    let items = await axios.get('api/products/many', itemIds)
-    // let guestCartPromises = await Object.keys(cart).map(async key => {
-    //   let {data} = await axios.get(`/api/products/${key}`)
-    //   data.quantity = cart[key]
-    //   return data
-    // })
-    // let guestCartArray = []
-    // guestCartPromises.forEach(Oitem =>
-    //   Oitem.then(item => guestCartArray.push(item))
-    // )
-    dispatch(addedCart(items))
+    let {data} = await axios.put('api/session/many', itemIds)
+    dispatch(addedCart(data))
+    dispatch(addQuant(cart))
     dispatch(loading(false))
   } catch (err) {
     console.log('Problem in cart(guest) reducer in store:', err)
+  }
+}
+export const getGuestCart = () => async dispatch => {
+  dispatch(loading(true))
+  try {
+    let {data} = await axios.get('/api/session')
+    dispatch(getCartItems(data))
+  } catch (err) {
+    console.log('Problem in cart(guest) reducer in store:', err)
+  }
+}
+export const addGuestInfo = (
+  guestName,
+  email,
+  address,
+  cart,
+  total
+) => async dispatch => {
+  try {
+    const guestInfo = {guestName, email, address, cart, total}
+    const {data} = await axios.post('/api/guestpurchases', guestInfo)
+    dispatch(addInfo(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const increaseQuantity = id => async dispatch => {
+  try {
+    let {data} = await axios.put('/api/session/up', {id: id})
+    dispatch(addQuant(data))
+  } catch (err) {
+    console.log('error increasing quantity in cart store', err)
+  }
+}
+
+export const decreaseQuantity = id => async dispatch => {
+  try {
+    let {data} = await axios.put('/api/session/down', {id: id})
+    dispatch(addQuant(data))
+  } catch (err) {
+    console.log('error increasing quantity in cart store', err)
+  }
+}
+
+export const deleteItem = id => async dispatch => {
+  try {
+    let cart = await axios.delete(`/api/session/delete/${id}`)
+
+    dispatch(getGuestCart())
+  } catch (err) {
+    console.log('error deleting item in cart store', err)
   }
 }
 
@@ -61,7 +125,8 @@ const getCartItems = cart => async dispatch => {
 
 let initialState = {
   items: [],
-  loading: false
+  loading: false,
+  order: ''
 }
 
 export default function(state = initialState, action) {
@@ -70,6 +135,19 @@ export default function(state = initialState, action) {
       return {...state, items: action.cart}
     case LOADING:
       return {...state, loading: action.loading}
+    case ADD_QUANT:
+      return {
+        ...state,
+        items: state.items.map(item => {
+          item.quantity = action.cart[item.id]
+
+          return item
+        })
+      }
+    case EMPTY_CART:
+      return {...state, items: []}
+    case ADD_INFO:
+      return {...state, order: action.info}
     default:
       return state
   }

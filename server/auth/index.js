@@ -12,6 +12,7 @@ router.post('/login', async (req, res, next) => {
       console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
+      req.session.cart = {}
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
   } catch (err) {
@@ -21,7 +22,12 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
+    const user = await User.create({
+      username: req.body.username,
+      email: req.body.email,
+      address: req.body.address,
+      password: req.body.password
+    })
     await Cart.create({userId: user.id})
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (err) {

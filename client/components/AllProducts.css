@@ -1,0 +1,8 @@
+.allProductsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  /* background-color: #0cce6b; */
+  background-color: #c200fb;
+  margin: 0;
+}

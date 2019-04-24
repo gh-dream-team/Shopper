@@ -1,0 +1,19 @@
+.singleProductContainer {
+  display: flex;
+  margin-top: 50px;
+  margin-left: 30px;
+}
+
+.productInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  margin-right: 100px;
+  font-family: 'Playfair Display', serif;
+  line-height: 2;
+}
+
+.productName {
+  font-size: 20px;
+  font-weight: bold;
+}

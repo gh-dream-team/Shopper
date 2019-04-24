@@ -1,9 +1,25 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
-import {addProduct} from '../store/cart.js'
+import {addGuestProduct} from '../store/cart.js'
+import {addToCartDb, addProduct} from '../store/userCart'
 import {connect} from 'react-redux'
+import {priceConverter} from '../utils'
+import './ItemView.css'
 
 class ItemView extends Component {
+  constructor() {
+    super()
+    this.handleClick = this.handleClick.bind(this)
+  }
+  handleClick() {
+    const {product, user} = this.props
+    if (user.username) {
+      this.props.addToCartDb(product)
+      this.props.addProduct(product.id)
+    } else {
+      this.props.addGuestProduct(product.id)
+    }
+  }
   render() {
     const {product} = this.props
     return (
@@ -14,12 +30,9 @@ class ItemView extends Component {
         <Link to={`/products/${product.id}`}>
           <div className="itemName">{product.name}</div>
         </Link>
-        <div className="itemPrice">{product.price}</div>
+        <div className="itemPrice">Price: ${priceConverter(product.price)}</div>
         <div className="addToCart">
-          <button
-            type="button"
-            onClick={() => this.props.addProduct(product.id)}
-          >
+          <button type="button" onClick={this.handleClick}>
             Add to cart
           </button>
         </div>
@@ -28,8 +41,14 @@ class ItemView extends Component {
   }
 }
 
-const mapDispatch = dispatch => ({
-  addProduct: id => dispatch(addProduct(id))
+const mapState = state => ({
+  user: state.user
 })
 
-export default connect(null, mapDispatch)(ItemView)
+const mapDispatch = dispatch => ({
+  addGuestProduct: id => dispatch(addGuestProduct(id)),
+  addProduct: id => dispatch(addProduct(id)),
+  addToCartDb: product => dispatch(addToCartDb(product))
+})
+
+export default connect(mapState, mapDispatch)(ItemView)

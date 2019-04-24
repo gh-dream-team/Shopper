@@ -1,18 +1,41 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {priceConverter} from '../utils'
+import PropTypes from 'prop-types'
+import './Checkout.css'
 
-const Checkout = (props) => {
-    const {total, address} = props
-    return(
-        <div>
-            <h1>Thank you for your order!</h1>
-            <h3>Your recent order on the Ninety's Shopper Online Store has been received.</h3>
-            <p>Order total: {total}</p>
-            <hr/>
-            <p>Shipping to: {address}</p>
+export class Checkout extends React.Component {
+  render() {
+    const {order} = this.props
+    const total = this.props.location.total
+    if (order.id) {
+      return (
+        <div className="receiptContainer">
+          <h1>Thank you for your order!</h1>
+          <p>
+            Your recent order on the Ninety's Shopper Online Store has been
+            received.
+          </p>
+          <p>Order total: ${priceConverter(total)}</p>
+          <hr />
+          <h3>Your order number is {order.id}</h3>
+          <hr />
+          <p>Your shipping address is {order.address}</p>
         </div>
-    )
+      )
+    } else {
+      return <div />
+    }
+  }
 }
 
-export default Checkout
+const mapState = state => ({
+  order: state.cart.order
+})
 
-//need to be able to pass in props of total and address from cart view.  This page should only appear after a user has clicked the submit button
+export default connect(mapState)(Checkout)
+
+Checkout.propTypes = {
+  // email: PropTypes.string
+  total: PropTypes.number
+}

@@ -4,24 +4,28 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import UserHome from './user-home'
+import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
+  <div className="navbarContainer">
     <h1>Ninety's Shopper</h1>
     <UserHome />
     <nav>
       {isLoggedIn ? (
         <div>
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <div className="navLink">
+            <Link to="/home">Home</Link>
+          </div>
           <Link to="/">Products</Link>
-          <Link to="/cart">Cart</Link>
+          <Link to="/usercart">Cart</Link>
+          <Link to="user-account">My Account</Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
         </div>
       ) : (
-        <div>
+        <div className="links">
           {/* The navbar will show these links before you log in */}
           <Link to="/">Products</Link>
           <Link to="/login">Login</Link>
@@ -30,7 +34,6 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         </div>
       )}
     </nav>
-    <hr />
   </div>
 )
 

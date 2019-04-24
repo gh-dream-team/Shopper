@@ -1,32 +1,42 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CartItemView from './CartItemView'
-import {getGuestCart} from '../store/cart'
+import {getGuestCart, deleteGuestCart} from '../store/cart'
+import {Link} from 'react-router-dom'
+import './CartItemView.css'
+import {priceConverter} from '../utils'
 
 class Cart extends Component {
-  //need to add a comp-did-mount
-  //add a dispatch func to get call from cart
   componentDidMount() {
-    if (!this.props.user.username) {
-      this.props.getGuestCart()
-    }
+    this.props.getGuestCart()
   }
 
   render() {
-    const {items, total, loading} = this.props
-    console.log('items:', items, Array.isArray(items), items[0])
-    items.forEach(item => console.log('item', item, item.name))
+    const {items, total, loading, deleteGuestCart} = this.props
+
     if (loading) {
       return <p>loading</p>
     } else {
       return (
         <div>
           <h1>WELCOME TO CART</h1>
-          {items.map(product => (
-            <CartItemView key={product.id} product={product} />
-          ))}
+          <div className="guestCartContainer">
+            <div className="leftGuestContainer">
+              {items.map(product => (
+                <CartItemView key={product.id} product={product} />
+              ))}
+            </div>
+            <div className="rightGuestContainer">
+              <div className="guestTotal">
+                Total(USD): ${priceConverter(total)}
+              </div>
 
-          <p>Total: ${total}</p>
+              <button type="button">
+                <Link to="/guest-checkout">Checkout Form</Link>{' '}
+              </button>
+              <button onClick={() => deleteGuestCart()}>Clear Cart</button>
+            </div>
+          </div>
         </div>
       )
     }
@@ -34,16 +44,21 @@ class Cart extends Component {
 }
 
 const mapState = state => ({
-  total: state.cart[0]
-    ? state.cart.reduce((total, item) => total + item.price * item.quantity, 0)
+  total: state.cart.items[0]
+    ? state.cart.items.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      )
     : 0,
-  items: state.cart.items,
+  cart: state.cart,
   user: state.user,
+  items: state.cart.items,
   loading: state.cart.loading
 })
 
-const mapDispatch = {
-  getGuestCart
-}
+const mapDispatch = dispatch => ({
+  getGuestCart: () => dispatch(getGuestCart()),
+  deleteGuestCart: () => dispatch(deleteGuestCart())
+})
 
 export default connect(mapState, mapDispatch)(Cart)

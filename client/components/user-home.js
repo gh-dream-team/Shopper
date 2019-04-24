@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import './user-home.css'
 
 /**
  * COMPONENT
@@ -10,11 +11,11 @@ export const UserHome = props => {
   if (username) {
     return (
       <div>
-        <h3>Welcome, {username}</h3>
+        <h3 className="hello">Welcome, {username}!</h3>
       </div>
     )
   } else {
-    return <h3>Hello there!</h3>
+    return <div className="hello">Hello there!</div>
   }
 }
 
