@@ -13,6 +13,7 @@ img {
   align-items: center;
   padding: 15px;
   font-family: 'Playfair Display', serif;
+  box-shadow: 10px 10px 10px rgb(46, 46, 46, 0.5);
 }
 .itemName {
   font-size: 18px;
