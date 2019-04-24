@@ -6,7 +6,7 @@ import {addProduct, addToCartDb} from '../store/userCart'
 import {priceConverter} from '../utils'
 import './SingleProduct.css'
 
-class SingleProduct extends Component {
+export class SingleProduct extends Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
